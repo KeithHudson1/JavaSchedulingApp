@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerView">
+   <children>
+       <Button fx:id="backButton" layoutX="856.0" layoutY="42.0" mnemonicParsing="false" onAction="#onBackButton" text="Back" />
+       <Button fx:id="exitButton" layoutX="925.0" layoutY="42.0" mnemonicParsing="false" onAction="#onExitButton" text="Exit" />
+      <Label layoutX="27.0" layoutY="26.0" prefHeight="35.0" prefWidth="190.0" text="Customer View">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <TableView fx:id="customersTable" layoutX="27.0" layoutY="88.0" prefHeight="250.0" prefWidth="936.0">
+        <columns>
+<!--          <TableColumn fx:id="customerIdCol" prefWidth="75.0" text="Customer ID" />-->
+<!--          <TableColumn fx:id="customerNameCol" prefWidth="185.0" text="Customer Name" />-->
+<!--            <TableColumn fx:id="customerAddressCol" prefWidth="397.0" text="Address" />-->
+<!--            <TableColumn fx:id="customerPostalCodeCol" prefWidth="91.0" text="Postal Code" />-->
+<!--            <TableColumn fx:id="customerPhoneCol" prefWidth="170.0" text="Phone" />-->
+
+            <TableColumn fx:id="customerIdCol" prefWidth="50.0"
+                         text="Cust ID" />
+            <TableColumn fx:id="customerNameCol" prefWidth="120.0"
+                         text="Customer Name" />
+            <TableColumn fx:id="addressCol" prefWidth="150.0" text="address" />
+            <TableColumn fx:id="postalCodeCol" prefWidth="81.0" text="Postal Code" />
+            <TableColumn fx:id="phoneCol" prefWidth="130.0" text="Phone" />
+            <TableColumn fx:id="customerCreateDateCol" prefWidth="130.0"
+                         text="Create Date" />
+            <TableColumn fx:id="customerCreatedByCol" prefWidth="80.0" text="Created By" />
+            <TableColumn fx:id="customerLastUpdateDateCol" prefWidth="130.0"
+                         text="Last Update Date" />
+            <TableColumn fx:id="customerLastUpdatedByCol" prefWidth="80.0" text="Last Updated By" />
+            <TableColumn fx:id="customerDivisionIdCol" prefWidth="50.0"
+                         text="Div ID" />
+        </columns>
+      </TableView>
+      <GridPane layoutX="59.0" layoutY="400.0" prefHeight="272.0" prefWidth="316.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="117.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.0" minWidth="10.0" prefWidth="210.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Customer ID" GridPane.rowIndex="1" />
+            <Label text="Customer Name" GridPane.rowIndex="2" />
+            <Label text="Customer Address" GridPane.rowIndex="3" />
+             <Label text="Country" GridPane.rowIndex="4" />
+             <Label text="Division / State" GridPane.rowIndex="5" />
+            <Label text="Postal Code" GridPane.rowIndex="6" />
+            <Label text="Phone" GridPane.rowIndex="7" />
+            <TextField fx:id="editCustomerIdText" disable="true" promptText="Auto Fill from DB" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="editCustomerNameText" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="editCustomerAddressText" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+             <ComboBox fx:id="editCustomerCountryComboBox" onAction="#onEditCustomerCountryComboBox" prefWidth="150.0" promptText="Choose Country" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+             <ComboBox fx:id="editCustomerFirstDivisionComboBox" prefWidth="150.0" promptText="Choose Division" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="editCustomerPostalCodeText" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="editCustomerPhoneText" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label prefHeight="17.0" prefWidth="110.0" text="Edit Customer" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+
+
+         </children>
+
+      </GridPane>
+       <GridPane layoutX="600.0" layoutY="400.0" prefHeight="272.0" prefWidth="316.0">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="117.0" />
+               <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.0" minWidth="10.0" prefWidth="210.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+           <children>
+               <Label text="Customer ID" GridPane.rowIndex="1" />
+               <Label text="Customer Name" GridPane.rowIndex="2" />
+               <Label text="Customer Address" GridPane.rowIndex="3" />
+               <Label text="Country" GridPane.rowIndex="4" />
+               <Label text="Division / State" GridPane.rowIndex="5" />
+               <Label text="Postal Code" GridPane.rowIndex="6" />
+               <Label text="Phone" GridPane.rowIndex="7" />
+               <TextField fx:id="newCustomerIdText" disable="true" promptText="Auto Fill from DB" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <TextField fx:id="newCustomerNameText" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <TextField fx:id="newCustomerAddressText" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <ComboBox fx:id="newCustomerCountryCombo" onAction="#onNewCustomerCountryCombo" prefWidth="150.0" promptText="Choose Country" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               <ComboBox fx:id="newCustomerDivisionCombo" prefWidth="150.0" promptText="Choose Division / State" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               <TextField fx:id="newCustomerPostalCodeText" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+               <TextField fx:id="newCustomerPhoneText" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+               <Label prefHeight="17.0" prefWidth="110.0" text="New Customer" GridPane.columnIndex="1">
+                   <font>
+                       <Font name="System Bold" size="14.0" />
+                   </font>
+               </Label>
+
+           </children>
+       </GridPane>
+      <GridPane layoutX="80.0" layoutY="360.0" prefHeight="30.0" prefWidth="257.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+             <Button fx:id="editCustomerButton" mnemonicParsing="false" onAction="#onEditCustomerButton" text="Edit Customer" />
+             <Button fx:id="deleteCustomerButton" mnemonicParsing="false" onAction="#onDeleteCustomerButton" text="Delete Customer" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+      <GridPane layoutX="126.0" layoutY="671.0" prefHeight="43.0" prefWidth="217.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+      
+            <Button fx:id="saveEditCustomerButton" mnemonicParsing="false" onAction="#onSaveEditCustomerButton" text="Save Customer" />
+            <Button fx:id="cancelCustomerChangeButton" mnemonicParsing="false" onAction="#onCancelCustomerChangeButton" text="Cancel" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+      <GridPane layoutX="654.0" layoutY="672.0" prefHeight="49.0" prefWidth="217.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="140.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="103.0" minWidth="10.0" prefWidth="77.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+      
+            <Button fx:id="saveNewCustomerButton" mnemonicParsing="false" onAction="#onSaveNewCustomerButton" text="Save New Customer" />
+            <Button fx:id="clearNewCustomerButton" mnemonicParsing="false" onAction="#onClearNewCustomerButton" prefHeight="25.0" prefWidth="56.0" text="Clear" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+      <Label fx:id="errorMessageLbl" layoutX="375.0" layoutY="367.0" prefHeight="17.0" prefWidth="264.0" textFill="#ee0808">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+
+   </children>
+</AnchorPane>

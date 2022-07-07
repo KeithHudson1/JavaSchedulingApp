@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreen">
+   <children>
+      <GridPane alignment="CENTER" layoutX="279.0" layoutY="300.0" prefHeight="129.0" prefWidth="355.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="228.0" minWidth="-Infinity" prefWidth="190.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="218.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="userNameLabel" alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="178.0" text="Username: ">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="passwordLabel" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="186.0" text="Password: " GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <TextField fx:id="userNameTextbox" GridPane.columnIndex="1" />
+            <TextField fx:id="passwordTextbox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginButton" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin></Button>
+         </children>
+      </GridPane>
+
+      <GridPane layoutX="31.0" layoutY="42.0" prefHeight="94.0" prefWidth="421.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="235.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="152.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="sysLangDetectedLbl" prefHeight="28.0" prefWidth="227.0" text="System Language Detected:" />
+            <TextField fx:id="systemLanguageTextField" disable="true" editable="false" prefHeight="25.0" prefWidth="161.0" promptText="Autofill User's system language" GridPane.columnIndex="1" />
+            <Label fx:id="appLangSelect" layoutX="10.0" layoutY="14.0" prefHeight="28.0" prefWidth="230.0" text="Application Language Selection: " GridPane.rowIndex="1" />
+            <ComboBox fx:id="languageSelectorBox" disable="true" prefHeight="25.0" prefWidth="183.0" promptText="FUTURE IMPROVEMENT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="sysZoneidDetectedLbl" prefHeight="28.0" prefWidth="227.0" text="System ZoneId Detected:" GridPane.rowIndex="2" />
+            <TextField fx:id="systemZoneIdTextField" disable="true" editable="false" prefHeight="25.0" prefWidth="161.0"  GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Button fx:id="exitButton" layoutX="925.0" layoutY="42.0" mnemonicParsing="false" onAction="#onExitButton" text="Exit" />
+      <Label fx:id="schedulingAppLbl" layoutX="364.0" layoutY="257.0" text="Welcome to the Scheduling App">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <Label fx:id="errorMessagePane" layoutX="367.0" layoutY="438.0" prefHeight="25.0" prefWidth="288.0" textAlignment="JUSTIFY" textFill="#ee0707">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

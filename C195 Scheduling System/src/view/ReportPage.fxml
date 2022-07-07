@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportPage">
+   <children>
+      <Label layoutX="50.0" layoutY="47.0" prefHeight="50.0" prefWidth="172.0" text="Report Page">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <GridPane layoutX="203.0" layoutY="117.0" prefHeight="103.0" prefWidth="399.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="21.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <Button fx:id="backButton" layoutX="856.0" layoutY="42.0" mnemonicParsing="false" onAction="#onBackButton" text="Back" />
+      <Button fx:id="exitButton" layoutX="925.0" layoutY="42.0" mnemonicParsing="false" onAction="#onExitButton" text="Exit" />
+      <TabPane layoutX="14.0" layoutY="510.0" prefHeight="256.0" prefWidth="886.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="usersTab" text="Users">
+               <content>
+                  <TableView fx:id="usersTable" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="usersUserIdCol" prefWidth="75.0" text="User ID" />
+                      <TableColumn fx:id="usersUserNameCol" prefWidth="95.0" text="User Name" />
+                        <TableColumn fx:id="usersPasswordCol" prefWidth="86.0" text="Password" />
+                        <TableColumn fx:id="usersCreateDateCol" prefWidth="101.0" text="Create Date" />
+                        <TableColumn fx:id="usersCreatedByCol" prefWidth="94.0" text="Created By" />
+                        <TableColumn fx:id="usersLastUpdateCol" prefWidth="144.0" text="Last Update" />
+                        <TableColumn fx:id="usersLastUpdatedByCol" prefWidth="115.0" text="Last Updated By" />
+                    </columns>
+                  </TableView>
+               </content></Tab>
+          <Tab fx:id="contactsTab" text="Contacts">
+               <content>
+                  <TableView fx:id="contactsTable" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn fx:id="contactIdCol" prefWidth="138.0" text="Contact ID" />
+                      <TableColumn fx:id="contactNameCol" prefWidth="204.0" text="Contact Name" />
+                        <TableColumn fx:id="contactEmailCol" prefWidth="235.0" text="Contact Email" />
+                    </columns>
+                  </TableView>
+               </content></Tab>
+            <Tab fx:id="countriesTab" text="Countries">
+               <content>
+                  <TableView fx:id="countriesTable" prefHeight="200.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="countryIdCol" prefWidth="150.0" text="Country ID" />
+                        <TableColumn fx:id="countryNameCol" prefWidth="142.0" text="Country Name" />
+                        <TableColumn fx:id="createDateCol" prefWidth="150.0" text="Create Date" />
+                        <TableColumn fx:id="createdByCol" prefWidth="150.0" text="Created By" />
+                        <TableColumn fx:id="lastUpdateDateCol" prefWidth="142.0" text="Last Update Date" />
+                        <TableColumn fx:id="lastUpdatedByCol" prefWidth="150.0" text="Last Updated By" />
+                     </columns>
+                  </TableView>
+               </content>
+            </Tab>
+            <Tab fx:id="divisionsTab" text="Divisions">
+               <content>
+                  <TableView fx:id="divisionsTable" prefHeight="200.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="divisionIdCol" prefWidth="113.0" text="Division ID" />
+                        <TableColumn fx:id="divisionNameCol" prefWidth="103.0" text="Division Name" />
+                        <TableColumn fx:id="divisionCreateDateCol" prefWidth="114.0" text="Create Date" />
+                        <TableColumn fx:id="divisionCreatedByCol" prefWidth="115.0" text="Created By" />
+                        <TableColumn fx:id="divisionLastUpdateCol" prefWidth="167.0" text="Last Update Date/Time" />
+                        <TableColumn fx:id="divisionLastUpdatedByCol" prefWidth="146.0" text="Last Updated By" />
+                        <TableColumn fx:id="divisionCountryIdCol" prefWidth="128.0" text="Country ID" />
+                     </columns>
+                  </TableView>
+               </content>
+            </Tab>
+            <Tab fx:id="customersTab" text="Customers">
+                <content>
+                    <TableView fx:id="customersTable" prefHeight="200.0" prefWidth="200.0">
+                        <columns>
+                            <TableColumn fx:id="customerIdCol" prefWidth="80.0" text="Customer ID" />
+                            <TableColumn fx:id="customerNameCol" prefWidth="142.0" text="Customer Name" />
+                            <TableColumn fx:id="addressCol" prefWidth="150.0" text="address" />
+                            <TableColumn fx:id="postalCodeCol" prefWidth="81.0" text="Postal Code" />
+                            <TableColumn fx:id="phoneCol" prefWidth="150.0" text="Phone" />
+                            <TableColumn fx:id="customerCreateDateCol" prefWidth="150.0" text="Create Date" />
+                            <TableColumn fx:id="customerCreatedByCol" prefWidth="80.0" text="Created By" />
+                            <TableColumn fx:id="customerLastUpdateDateCol" prefWidth="142.0" text="Last Update Date" />
+                            <TableColumn fx:id="customerLastUpdatedByCol" prefWidth="80.0" text="Last Updated By" />
+                            <TableColumn fx:id="customerDivisionIdCol" prefWidth="80.0" text="Division ID" />
+                        </columns>
+                    </TableView>
+                </content>
+            </Tab>
+        </tabs>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </TabPane>
+      <TabPane fx:id="contactAppointmentTable" layoutX="14.0" layoutY="243.0" prefHeight="256.0" prefWidth="886.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab fx:id="customersTab1" text="Empty">
+               <content>
+                  <TableView fx:id="customersAppointmentTable" prefHeight="200.0" prefWidth="200.0">
+                     <columns>
+                      <TableColumn fx:id="apptContactIdCol1" prefWidth="75.0" text="Contact ID" />
+                      <TableColumn fx:id="apptIdCol1" prefWidth="103.0" text="Appointment ID" />
+                      <TableColumn fx:id="apptTitleCol1" minWidth="0.0" prefWidth="47.0" text="Title" />
+                      <TableColumn fx:id="apptDescriptionCol1" prefWidth="75.0" text="Description" />
+                      <TableColumn fx:id="apptTypeCol1" prefWidth="150.0" text="Type" />
+                      <TableColumn fx:id="apptStartDateAndTimeCol1" prefWidth="150.0" text="Start Date and Time" />
+                      <TableColumn fx:id="apptEndDateAndTimeCol1" prefWidth="150.0" text="End Date and Time" />
+                      <TableColumn fx:id="apptCustomerIdCol1" prefWidth="75.0" text="Customer ID" />
+                     </columns>
+                  </TableView>
+               </content>
+            </Tab>
+            <Tab fx:id="customersTab2" text="Empty">
+               <content>
+                  <TableView fx:id="customersAppointmentTable1" prefHeight="200.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="apptContactIdCol2" prefWidth="75.0" text="Contact ID" />
+                        <TableColumn fx:id="apptIdCol2" prefWidth="103.0" text="Appointment ID" />
+                        <TableColumn fx:id="apptTitleCol2" minWidth="0.0" prefWidth="47.0" text="Title" />
+                        <TableColumn fx:id="apptDescriptionCol2" prefWidth="75.0" text="Description" />
+                        <TableColumn fx:id="apptTypeCol2" prefWidth="150.0" text="Type" />
+                        <TableColumn fx:id="apptStartDateAndTimeCol2" prefWidth="150.0" text="Start Date and Time" />
+                        <TableColumn fx:id="apptEndDateAndTimeCol2" prefWidth="150.0" text="End Date and Time" />
+                        <TableColumn fx:id="apptCustomerIdCol2" prefWidth="75.0" text="Customer ID" />
+                     </columns>
+                  </TableView>
+               </content>
+            </Tab>
+            <Tab fx:id="customersTab3" text="Empty">
+               <content>
+                  <TableView fx:id="customersAppointmentTable11" prefHeight="200.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="apptContactIdCol3" prefWidth="75.0" text="Contact ID" />
+                        <TableColumn fx:id="apptIdCol3" prefWidth="103.0" text="Appointment ID" />
+                        <TableColumn fx:id="apptTitleCol3" minWidth="0.0" prefWidth="47.0" text="Title" />
+                        <TableColumn fx:id="apptDescriptionCol3" prefWidth="75.0" text="Description" />
+                        <TableColumn fx:id="apptTypeCol3" prefWidth="150.0" text="Type" />
+                        <TableColumn fx:id="apptStartDateAndTimeCol3" prefWidth="150.0" text="Start Date and Time" />
+                        <TableColumn fx:id="apptEndDateAndTimeCol3" prefWidth="150.0" text="End Date and Time" />
+                        <TableColumn fx:id="apptCustomerIdCol3" prefWidth="75.0" text="Customer ID" />
+                     </columns>
+                  </TableView>
+               </content>
+            </Tab>
+            <Tab fx:id="customersTab4" text="Empty">
+               <content>
+                  <TableView fx:id="customersAppointmentTable4"
+                             prefHeight="200.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="apptContactIdCol4" prefWidth="75.0" text="Contact ID" />
+                        <TableColumn fx:id="apptIdCol4" prefWidth="103.0" text="Appointment ID" />
+                        <TableColumn fx:id="apptTitleCol4" minWidth="0.0" prefWidth="47.0" text="Title" />
+                        <TableColumn fx:id="apptDescriptionCol4" prefWidth="75.0" text="Description" />
+                        <TableColumn fx:id="apptTypeCol4" prefWidth="150.0" text="Type" />
+                        <TableColumn fx:id="apptStartDateAndTimeCol4" prefWidth="150.0" text="Start Date and Time" />
+                        <TableColumn fx:id="apptEndDateAndTimeCol4" prefWidth="150.0" text="End Date and Time" />
+                        <TableColumn fx:id="apptCustomerIdCol4" prefWidth="75.0" text="Customer ID" />
+                     </columns>
+                  </TableView>
+               </content>
+            </Tab>
+            <Tab fx:id="customersTab5" text="Empty">
+               <content>
+                  <TableView fx:id="customersAppointmentTable5"
+                             prefHeight="200.0" prefWidth="200.0">
+                     <columns>
+                        <TableColumn fx:id="apptContactIdCol5" prefWidth="75.0" text="Contact ID" />
+                        <TableColumn fx:id="apptIdCol5" prefWidth="103.0" text="Appointment ID" />
+                        <TableColumn fx:id="apptTitleCol5" minWidth="0.0" prefWidth="47.0" text="Title" />
+                        <TableColumn fx:id="apptDescriptionCol5" prefWidth="75.0" text="Description" />
+                        <TableColumn fx:id="apptTypeCol5" prefWidth="150.0" text="Type" />
+                        <TableColumn fx:id="apptStartDateAndTimeCol5" prefWidth="150.0" text="Start Date and Time" />
+                        <TableColumn fx:id="apptEndDateAndTimeCol5" prefWidth="150.0" text="End Date and Time" />
+                        <TableColumn fx:id="apptCustomerIdCol5" prefWidth="75.0" text="Customer ID" />
+                     </columns>
+                  </TableView>
+               </content>
+            </Tab>
+         </tabs>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </TabPane>
+   </children>
+</AnchorPane>
