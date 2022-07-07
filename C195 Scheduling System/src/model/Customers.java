@@ -56,6 +56,7 @@ public class Customers {
         this.lastUpdatedBy = lastUpdatedBy;
         this.divisionId = divisionId;
     }
+    public String toString() {return customerId + " " + name; }
 
     /**
      *

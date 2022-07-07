@@ -258,10 +258,8 @@ public class CustomerView implements Initializable {
             String customerPostalCode = newCustomerPostalCodeText.getText();
             String customerPhone = newCustomerPhoneText.getText();
 
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            DateTimeFormatter timeFormatter =
-                    DateTimeFormatter.ofPattern("HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             LocalDate createDate = LocalDate.now();
             String createTime = LocalTime.now().format(timeFormatter);
             System.out.println(createDate);
@@ -269,12 +267,11 @@ public class CustomerView implements Initializable {
 
             String createDateTimeString = (createDate + " " + createTime);
             System.out.println(createDateTimeString);
-            LocalDateTime createDateTime =
-                    LocalDateTime.parse(createDateTimeString, formatter);
+            LocalDateTime createDateTime = LocalDateTime.parse(createDateTimeString, formatter);
 
-            String createdBy = "Mee";
+            String createdBy = "User";
             LocalDateTime lastUpdateDateTime = LocalDateTime.now();
-            String lastUpdatedBy = "Mee2";
+            String lastUpdatedBy = "User";
 
 
             CustomersDaoImpl.insert(customerName, customerAddress,
@@ -313,7 +310,6 @@ public class CustomerView implements Initializable {
         newCustomerPhoneText.clear();
         newCustomerAddressText.clear();
         newCustomerPostalCodeText.clear();
-        newCustomerCountryCombo.cancelEdit();
         // These would cause an issue with the CountryCombo methods.
 //        newCustomerCountryCombo.valueProperty().set(null);
 //        newCustomerDivisionCombo.valueProperty().set(null);
@@ -328,26 +324,21 @@ public class CustomerView implements Initializable {
 
         try {
             int customerId = Integer.parseInt(editCustomerIdText.getText());
-            Customers selectedCustomer =
-                    CustomersDaoImpl.getCustomer(customerId);
+            Customers selectedCustomer = CustomersDaoImpl.getCustomer(customerId);
             String customerName = editCustomerNameText.getText();
             String customerAddress = editCustomerAddressText.getText();
-            Countries customerCountry =
-                    editCustomerCountryComboBox.getSelectionModel().getSelectedItem();
-            FirstLevelDivisions customerFirstDivision =
-                    editCustomerFirstDivisionComboBox.getSelectionModel().getSelectedItem();
+            Countries customerCountry = editCustomerCountryComboBox.getSelectionModel().getSelectedItem();
+            FirstLevelDivisions customerFirstDivision = editCustomerFirstDivisionComboBox.getSelectionModel().getSelectedItem();
             String customerPostalCode = editCustomerPostalCodeText.getText();
             String customerPhone = editCustomerPhoneText.getText();
 
-            DateTimeFormatter formatter =
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            DateTimeFormatter timeFormatter =
-                    DateTimeFormatter.ofPattern("HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             LocalDateTime createDateTime = selectedCustomer.getCreateDate();
 
             String createdBy = selectedCustomer.getCreatedBy();
             LocalDateTime lastUpdateDateTime = LocalDateTime.now();
-            String lastUpdatedBy = "Mee2";
+            String lastUpdatedBy = "User";
             int divisionId = customerFirstDivision.getId();
 
             CustomersDaoImpl.update (customerId, customerName, customerAddress,
@@ -385,18 +376,18 @@ public class CustomerView implements Initializable {
         editCustomerAddressText.clear();
         editCustomerPostalCodeText.clear();
         editCustomerPhoneText.clear();
-        editCustomerCountryComboBox.valueProperty().set(null);
-        editCustomerFirstDivisionComboBox.valueProperty().set(null);
+        // These would cause an issue with the CountryCombo methods.
+//        editCustomerCountryComboBox.valueProperty().set(null);
+//        editCustomerFirstDivisionComboBox.valueProperty().set(null);
+
     }
 
     public void onNewCustomerCountryCombo(ActionEvent actionEvent) {
-        ObservableList<FirstLevelDivisions> divisionsWithCountryId =
-                FXCollections.observableArrayList();
+        ObservableList<FirstLevelDivisions> divisionsWithCountryId = FXCollections.observableArrayList();
 
         int divisionsToChoose = -1;
 
-        Countries chosenCountry =
-                newCustomerCountryCombo.getSelectionModel().getSelectedItem();
+        Countries chosenCountry = newCustomerCountryCombo.getSelectionModel().getSelectedItem();
         divisionsToChoose = chosenCountry.getCountryId();
 
         for (FirstLevelDivisions div :
@@ -411,13 +402,11 @@ public class CustomerView implements Initializable {
     }
 
     public void onEditCustomerCountryComboBox(ActionEvent actionEvent) {
-        ObservableList<FirstLevelDivisions> divisionsWithCountryId =
-                FXCollections.observableArrayList();
+        ObservableList<FirstLevelDivisions> divisionsWithCountryId = FXCollections.observableArrayList();
 
         int divisionsToChoose = -1;
 
-        Countries chosenCountry =
-                    editCustomerCountryComboBox.getSelectionModel().getSelectedItem();
+        Countries chosenCountry = editCustomerCountryComboBox.getSelectionModel().getSelectedItem();
         divisionsToChoose = chosenCountry.getCountryId();
 
         for (FirstLevelDivisions div :
@@ -427,9 +416,7 @@ public class CustomerView implements Initializable {
 //                editCustomerFirstDivisionComboBox.setValue(div);
                 divisionsWithCountryId.add(div);
                 editCustomerFirstDivisionComboBox.setItems(divisionsWithCountryId);
-
             }
         }
     }
-
 }

@@ -1,7 +1,6 @@
 package controller;
 
-import DAO.AppointmentsDaoImpl;
-import DAO.ContactsDaoImpl;
+import DAO.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +14,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointments;
 import model.Contacts;
+import model.Customers;
+import model.Users;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,8 +49,6 @@ public class AppointmentView implements Initializable {
     public ComboBox<LocalTime> editAppointmentStartTime;
     public DatePicker editAppointmentEndDate;
     public ComboBox<LocalTime> editAppointmentEndTime;
-    public TextField editAppointmentCustomerIdText;
-    public TextField editAppointmentUserIdText;
     public Button editAppointmentSaveChangesButton;
     public Button editAppointmentCancelChangesButton;
 
@@ -57,8 +56,6 @@ public class AppointmentView implements Initializable {
     public TextField newAppointmentTitleText;
     public TextField newAppointmentDescriptionText;
     public TextField newAppointmentLocationText;
-    public TextField newAppointmentCustomerIdText;
-    public TextField newAppointmentUserIdText;
     public ComboBox<String> newAppointmentTypeComboBox;
     public ComboBox<LocalTime> newAppointmentStartTime;
     public ComboBox<LocalTime> newAppointmentEndTime;
@@ -91,6 +88,10 @@ public class AppointmentView implements Initializable {
     public TableColumn apptContactCol;
     public ComboBox<Contacts> newAppointmentContactComboBox;
     public ComboBox<Contacts> editAppointmentContactComboBox;
+    public ComboBox<Customers> editAppointmentCustomerCombo;
+    public ComboBox<Users> editAppointmentUserCombo;
+    public ComboBox<Customers> newAppointmentCustomerCombo;
+    public ComboBox<Users> newAppointmentUserCombo;
 
     ObservableList<Appointments> appointmentList =
             FXCollections.observableArrayList();
@@ -107,16 +108,12 @@ public class AppointmentView implements Initializable {
         apptIdCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         apptDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        apptLocationCol.setCellValueFactory(new PropertyValueFactory<>(
-                "location"));
-        apptContactCol.setCellValueFactory(new PropertyValueFactory<>(
-                "contactId"));
+        apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        apptContactCol.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         apptStartDateAndTimeCol.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
-        apptEndDateAndTimeCol.setCellValueFactory(new PropertyValueFactory<>(
-                "endDateTime"));
-        apptCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>(
-                "customerId"));
+        apptEndDateAndTimeCol.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        apptCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
         ObservableList<String> typeOptions =
@@ -130,29 +127,22 @@ public class AppointmentView implements Initializable {
 
 //        LocalTime start = LocalTime.of(6, 00);
 //        LocalTime end = LocalTime.of(17, 00);
-
+//FIXME: These time checks are not wokring correctly.
         LocalDate easternDate = LocalDate.now();
         LocalTime easternStartTime = LocalTime.of(8,0);
         ZoneId easternZoneId = ZoneId.of("America/New_York");
-        ZonedDateTime easternStartZDT = ZonedDateTime.of(easternDate,
-                easternStartTime,
-                easternZoneId);
+        ZonedDateTime easternStartZDT = ZonedDateTime.of(easternDate, easternStartTime, easternZoneId);
         ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
         Instant easternToLocalInstance = easternStartZDT.toInstant();
-        ZonedDateTime easternStartToLocalZDT =
-                easternStartZDT.withZoneSameInstant(localZoneId);
-        LocalTime localStartTimeFromEastern =
-                easternStartToLocalZDT.toLocalTime();
+        ZonedDateTime easternStartToLocalZDT = easternStartZDT.withZoneSameInstant(localZoneId);
+        LocalTime localStartTimeFromEastern = easternStartToLocalZDT.toLocalTime();
         LocalTime start = easternStartToLocalZDT.toLocalTime();
 
         LocalTime easternEndTime = LocalTime.of(20,0);
-        ZonedDateTime easternEndZDT = ZonedDateTime.of(easternDate,
-                easternEndTime,
-                easternZoneId);
+        ZonedDateTime easternEndZDT = ZonedDateTime.of(easternDate, easternEndTime, easternZoneId);
 
         Instant easternToLocalInstanceEnd = easternEndZDT.toInstant();
-        ZonedDateTime easternEndToLocalZDT =
-                easternEndZDT.withZoneSameInstant(localZoneId);
+        ZonedDateTime easternEndToLocalZDT = easternEndZDT.withZoneSameInstant(localZoneId);
         LocalTime localEndTimeFromEastern = easternEndToLocalZDT.toLocalTime();
         LocalTime end = easternEndToLocalZDT.toLocalTime();
 
@@ -165,14 +155,18 @@ public class AppointmentView implements Initializable {
             start = start.plusMinutes(30);
         }
 
-
-
         try {
             appointmentList.addAll(AppointmentsDaoImpl.getAllAppointments());
             appointmentTableView.setItems(appointmentList);
 
             editAppointmentContactComboBox.setItems(ContactsDaoImpl.getAllContacts());
             newAppointmentContactComboBox.setItems(ContactsDaoImpl.getAllContacts());
+            editAppointmentCustomerCombo.setItems(CustomersDaoImpl.getAllCustomers());
+            newAppointmentCustomerCombo.setItems(CustomersDaoImpl.getAllCustomers());
+            editAppointmentUserCombo.setItems(UserDaoImpl.getAllUsers());
+            newAppointmentUserCombo.setItems(UserDaoImpl.getAllUsers());
+
+
 
         } catch (Exception e) {
             Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE,
@@ -251,9 +245,8 @@ public class AppointmentView implements Initializable {
         editAppointmentStartTime.setValue(selectedAppointment.getStartDateTime().toLocalTime());
         editAppointmentEndDate.setValue(selectedAppointment.getEndDateTime().toLocalDate());
         editAppointmentEndTime.setValue(selectedAppointment.getEndDateTime().toLocalTime());
-        editAppointmentUserIdText.setText(String.valueOf(selectedAppointment.getUserId()));
-        editAppointmentCustomerIdText.setText(String.valueOf(selectedAppointment.getCustomerId()));
-
+        editAppointmentCustomerCombo.setValue(CustomersDaoImpl.getCustomer(selectedAppointment.getCustomerId()));
+        editAppointmentUserCombo.setValue(UserDaoImpl.getUser(selectedAppointment.getUserId()));
     }
 
     /**
@@ -317,68 +310,54 @@ public class AppointmentView implements Initializable {
 
         Save : try {
             int id = Integer.parseInt(editAppointmentIdText.getText());
-            Appointments selectedAppointment =
-                    AppointmentsDaoImpl.getAppointment(id);
+            Appointments selectedAppointment = AppointmentsDaoImpl.getAppointment(id);
             String title = editAppointmentTitleText.getText();
             String description = editAppointmentDescriptionText.getText();
             String location = editAppointmentLocationText.getText();
 
 //            int contactId =
 //                    Integer.parseInt(editAppointmentContactComboBox.getId());
-            Contacts selectedContact =
-                    editAppointmentContactComboBox.getSelectionModel().getSelectedItem();
+            Contacts selectedContact = editAppointmentContactComboBox.getSelectionModel().getSelectedItem();
             int contactId = selectedContact.getId();
-            String type =
-                    editAppointmentTypeComboBox.getSelectionModel().getSelectedItem();
+            String type = editAppointmentTypeComboBox.getSelectionModel().getSelectedItem();
 
             System.out.println(editAppointmentTypeComboBox.getSelectionModel().getSelectedItem());
 
             LocalDate localStartDate = editAppointmentStartDate.getValue();
-            LocalTime localStartTime =
-                    editAppointmentStartTime.getSelectionModel().getSelectedItem();
-            LocalDateTime localStartDateTime = LocalDateTime.of(localStartDate,
-                    localStartTime);
+            LocalTime localStartTime = editAppointmentStartTime.getSelectionModel().getSelectedItem();
+            LocalDateTime localStartDateTime = LocalDateTime.of(localStartDate, localStartTime);
             ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-            ZonedDateTime localStartZDT = ZonedDateTime.of(localStartDateTime
-                    , localZoneId);
+            ZonedDateTime localStartZDT = ZonedDateTime.of(localStartDateTime, localZoneId);
             ZoneId utcZoneId = ZoneId.of("UTC");
             Instant localStartToUtcInstance = localStartZDT.toInstant();
-            ZonedDateTime localStartDateTimeToUtcZDT =
-                    localStartZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcStartDateTime =
-                    localStartDateTimeToUtcZDT.toLocalDateTime();
-            System.out.println("Local Start: " + localStartDateTime + " to " +
-                    "UTC: " + utcStartDateTime);
+            ZonedDateTime localStartDateTimeToUtcZDT = localStartZDT.withZoneSameInstant(utcZoneId);
+            LocalDateTime utcStartDateTime = localStartDateTimeToUtcZDT.toLocalDateTime();
+            System.out.println("Local Start: " + localStartDateTime + " to UTC: " + utcStartDateTime);
 
             LocalDate localEndDate = editAppointmentEndDate.getValue();
-            LocalTime localEndTime =
-                    editAppointmentEndTime.getSelectionModel().getSelectedItem();
+            LocalTime localEndTime = editAppointmentEndTime.getSelectionModel().getSelectedItem();
             LocalDateTime localEndDateTime = LocalDateTime.of(localEndDate, localEndTime);
             ZonedDateTime localEndZDT = ZonedDateTime.of(localEndDateTime, localZoneId);
-            ZonedDateTime localEndDateToUtcZDT =
-                    localEndZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcEndDateTime =
-                    localEndDateToUtcZDT.toLocalDateTime();
+            ZonedDateTime localEndDateToUtcZDT = localEndZDT.withZoneSameInstant(utcZoneId);
+            LocalDateTime utcEndDateTime = localEndDateToUtcZDT.toLocalDateTime();
             System.out.println("Local End: " + localEndDateTime + " to UTC: " + utcEndDateTime);
 
             String createdBy = selectedAppointment.getCreatedBy();
 
             LocalDateTime localUpdateDateTime = LocalDateTime.now();
             ZonedDateTime localUpdateZDT = ZonedDateTime.of(localUpdateDateTime, localZoneId);
-            ZonedDateTime localUpdateDateToUtcZDT =
-                    localUpdateZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcUpdateDateTime =
-                    localUpdateDateToUtcZDT.toLocalDateTime();
-            System.out.println("Local Update: " + localUpdateDateTime + " to " +
-                    "UTC: " + utcUpdateDateTime);
+            ZonedDateTime localUpdateDateToUtcZDT = localUpdateZDT.withZoneSameInstant(utcZoneId);
+            LocalDateTime utcUpdateDateTime = localUpdateDateToUtcZDT.toLocalDateTime();
+            System.out.println("Local Update: " + localUpdateDateTime + " to UTC: " + utcUpdateDateTime);
 
-            LocalDateTime createDateTime =
-                    selectedAppointment.getCreateDateTime();
+            LocalDateTime createDateTime = selectedAppointment.getCreateDateTime();
 
             String lastUpdatedBy = "me";
-            int customerId = Integer.parseInt(editAppointmentCustomerIdText.getText());
-            int userId = Integer.parseInt(editAppointmentUserIdText.getText());
+            Customers selectedCustomer = editAppointmentCustomerCombo.getSelectionModel().getSelectedItem();
+            Users selectedUser = editAppointmentUserCombo.getSelectionModel().getSelectedItem();
 
+            int customerId = selectedCustomer.getCustomerId();
+            int userId = selectedUser.getId();
 
             for (Appointments a : appointmentList) {
                 LocalDateTime aStart = a.getStartDateTime();
@@ -393,11 +372,13 @@ public class AppointmentView implements Initializable {
                     if(customerId == a.getCustomerId()) {
                         if(localStartDateTime.isBefore(LocalDateTime.now())){
                             errorMessageLbl.setText("Your start time is in the past.");
+                            break Save;
                         }
-                        if(localStartDateTime.isAfter(localEndDateTime)){
+                        else if(localStartDateTime.isAfter(localEndDateTime)){
                             errorMessageLbl.setText("Your submitted End time is before your Start time.");
+                            break Save;
                         }
-                        if(((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
+                        else if(((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
                             errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
                             break Save;
                         }
@@ -436,13 +417,13 @@ public class AppointmentView implements Initializable {
             editAppointmentDescriptionText.clear();
             editAppointmentLocationText.clear();
             editAppointmentContactComboBox.valueProperty().set(null);
-            editAppointmentCustomerIdText.clear();
-            editAppointmentUserIdText.clear();
             editAppointmentTypeComboBox.valueProperty().set(null);
             editAppointmentStartTime.valueProperty().set(null);
             editAppointmentEndTime.valueProperty().set(null);
             editAppointmentStartDate.getEditor().clear();
             editAppointmentEndDate.getEditor().clear();
+            editAppointmentCustomerCombo.valueProperty().set(null);
+            editAppointmentUserCombo.valueProperty().set(null);
         }
         catch(NumberFormatException | SQLException e) {
             System.out.println("Wrong values detected!");
@@ -466,13 +447,13 @@ public class AppointmentView implements Initializable {
         editAppointmentDescriptionText.clear();
         editAppointmentLocationText.clear();
         editAppointmentContactComboBox.valueProperty().set(null);
-        editAppointmentCustomerIdText.clear();
-        editAppointmentUserIdText.clear();
         editAppointmentTypeComboBox.valueProperty().set(null);
         editAppointmentStartTime.valueProperty().set(null);
         editAppointmentEndTime.valueProperty().set(null);
         editAppointmentStartDate.getEditor().clear();
         editAppointmentEndDate.getEditor().clear();
+        editAppointmentCustomerCombo.valueProperty().set(null);
+        editAppointmentUserCombo.valueProperty().set(null);
 
         errorMessageLbl.setText("");
     }
@@ -501,64 +482,50 @@ public class AppointmentView implements Initializable {
             System.out.println(type);
 
             LocalDate localStartDate = newAppointmentStartDate.getValue();
-            LocalTime localStartTime =
-                    newAppointmentStartTime.getSelectionModel().getSelectedItem();
-            LocalDateTime localStartDateTime = LocalDateTime.of(localStartDate,
-                    localStartTime);
+            LocalTime localStartTime = newAppointmentStartTime.getSelectionModel().getSelectedItem();
+            LocalDateTime localStartDateTime = LocalDateTime.of(localStartDate, localStartTime);
             ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-            ZonedDateTime localStartZDT = ZonedDateTime.of(localStartDate,
-                    localStartTime, localZoneId);
+            ZonedDateTime localStartZDT = ZonedDateTime.of(localStartDate, localStartTime, localZoneId);
             ZoneId utcZoneId = ZoneId.of("UTC");
             Instant localToUtcInstance = localStartZDT.toInstant();
-            ZonedDateTime localStartDateToUtcZDT =
-                    localStartZDT.withZoneSameInstant(utcZoneId);
+            ZonedDateTime localStartDateToUtcZDT = localStartZDT.withZoneSameInstant(utcZoneId);
 //            LocalTime utcStartTimeFromLocal = localStartToUtcZDT.toInstant
 //            (UNSURE);
-            LocalDateTime utcStartDateTime =
-                    localStartDateToUtcZDT.toLocalDateTime();
+            LocalDateTime utcStartDateTime = localStartDateToUtcZDT.toLocalDateTime();
 
             System.out.println("Local Start: " + localStartDateTime + " to " +
                     "UTC: " + utcStartDateTime);
 
 
             LocalDate localEndDate = newAppointmentEndDate.getValue();
-            LocalTime localEndTime = newAppointmentEndTime.getSelectionModel().
-                    getSelectedItem();
-            LocalDateTime localEndDateTime = LocalDateTime.of(localEndDate,
-                    localEndTime);
-            ZonedDateTime localEndZDT = ZonedDateTime.of(localEndDate,
-                    localEndTime, localZoneId);
-            ZonedDateTime localEndDateToUtcZDT =
-                    localEndZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcEndDateTime =
-                    localEndDateToUtcZDT.toLocalDateTime();
+            LocalTime localEndTime = newAppointmentEndTime.getSelectionModel().getSelectedItem();
+            LocalDateTime localEndDateTime = LocalDateTime.of(localEndDate, localEndTime);
+            ZonedDateTime localEndZDT = ZonedDateTime.of(localEndDate, localEndTime, localZoneId);
+            ZonedDateTime localEndDateToUtcZDT = localEndZDT.withZoneSameInstant(utcZoneId);
+            LocalDateTime utcEndDateTime = localEndDateToUtcZDT.toLocalDateTime();
             System.out.println("Local End: " + localEndDateTime + " to UTC: " + utcEndDateTime);
 
 
             LocalDateTime localCreateDateTime = LocalDateTime.now();
             ZonedDateTime localCreateZDT = ZonedDateTime.of(localCreateDateTime, localZoneId);
-            ZonedDateTime localCreateDateToUtcZDT =
-                    localCreateZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcCreateDateTime =
-                    localCreateDateToUtcZDT.toLocalDateTime();
-            System.out.println("Local Create: " + localCreateDateTime + " to " +
-                    "UTC: " + utcCreateDateTime);
+            ZonedDateTime localCreateDateToUtcZDT = localCreateZDT.withZoneSameInstant(utcZoneId);
+            LocalDateTime utcCreateDateTime = localCreateDateToUtcZDT.toLocalDateTime();
+            System.out.println("Local Create: " + localCreateDateTime + " to UTC: " + utcCreateDateTime);
 
-            String createdBy = "Mee";
+            String createdBy = "User";
 
             LocalDateTime localUpdateDateTime = LocalDateTime.now();
             ZonedDateTime localUpdateZDT = ZonedDateTime.of(localUpdateDateTime, localZoneId);
-            ZonedDateTime localUpdateDateToUtcZDT =
-                    localUpdateZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcUpdateDateTime =
-                    localUpdateDateToUtcZDT.toLocalDateTime();
-            System.out.println("Local Update: " + localUpdateDateTime + " to " +
-                    "UTC: " + utcUpdateDateTime);
+            ZonedDateTime localUpdateDateToUtcZDT = localUpdateZDT.withZoneSameInstant(utcZoneId);
+            LocalDateTime utcUpdateDateTime = localUpdateDateToUtcZDT.toLocalDateTime();
+            System.out.println("Local Update: " + localUpdateDateTime + " to UTC: " + utcUpdateDateTime);
 
-            String lastUpdatedBy = "Mee2";
+            String lastUpdatedBy = "User";
+            Customers selectedCustomer = newAppointmentCustomerCombo.getSelectionModel().getSelectedItem();
+            Users selectedUser = newAppointmentUserCombo.getSelectionModel().getSelectedItem();
 
-            int customerId = Integer.parseInt(newAppointmentCustomerIdText.getText());
-            int userId = Integer.parseInt(newAppointmentUserIdText.getText());
+            int customerId = selectedCustomer.getCustomerId();
+            int userId = selectedUser.getId();
 
             for (Appointments a : appointmentList) {
                 LocalDateTime aStart = a.getStartDateTime();
@@ -569,14 +536,16 @@ public class AppointmentView implements Initializable {
 //                System.out.println("Appt entered start utc time: " + utcStartDateTime);
 //                System.out.println("Appt entered start utc time: " + utcEndDateTime);
 
-                if( customerId == a.getCustomerId()) {
+                if(customerId == a.getCustomerId()) {
                     if(localStartDateTime.isBefore(LocalDateTime.now())){
                         errorMessageLbl.setText("Your start time is in the past.");
+                        break Save;
                     }
-                    if(localStartDateTime.isAfter(localEndDateTime)){
+                    else if(localStartDateTime.isAfter(localEndDateTime)){
                         errorMessageLbl.setText("Your submitted End time is before your Start time.");
+                        break Save;
                     }
-                    if(((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
+                    else if(((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
                         errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
                         break Save;
                     }
@@ -621,6 +590,8 @@ public class AppointmentView implements Initializable {
 //            newAppointmentEndTime.valueProperty().set(null);
 //            newAppointmentStartDate.getEditor().clear();
 //            newAppointmentEndDate.getEditor().clear();
+//            newAppointmentCustomerCombo.valueProperty().set(null);
+//            newAppointmentUserCombo.valueProperty().set(null);
 
         }
         catch(NumberFormatException | SQLException e) {
@@ -645,13 +616,13 @@ public class AppointmentView implements Initializable {
         newAppointmentDescriptionText.clear();
         newAppointmentLocationText.clear();
         newAppointmentContactComboBox.valueProperty().set(null);
-        newAppointmentCustomerIdText.clear();
-        newAppointmentUserIdText.clear();
         newAppointmentTypeComboBox.valueProperty().set(null);
         newAppointmentStartTime.valueProperty().set(null);
         newAppointmentEndTime.valueProperty().set(null);
         newAppointmentStartDate.getEditor().clear();
         newAppointmentEndDate.getEditor().clear();
+        newAppointmentCustomerCombo.valueProperty().set(null);
+        newAppointmentUserCombo.valueProperty().set(null);
 
         errorMessageLbl.setText("");
     }

@@ -61,6 +61,18 @@ public class UserDaoImpl {
         return null;
     }
 
+    public static Users getUser (int userId) {
+        ObservableList<Users> allUsers = UserDaoImpl.getAllUsers();
+
+        for(int i = 0; i < allUsers.size(); i++) {
+            Users searchedUser = allUsers.get(i);
+            if(searchedUser.getId() == userId) {
+                return searchedUser;
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * @return

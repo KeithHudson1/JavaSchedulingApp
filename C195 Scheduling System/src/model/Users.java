@@ -32,6 +32,10 @@ public class Users {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
+    public String toString() {
+        return id + " " + userName;
+    }
+
     /**
      *
      * @return

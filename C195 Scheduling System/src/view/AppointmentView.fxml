@@ -4,8 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.AppointmentView">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppointmentView">
    <children>
       <Label layoutX="30.0" layoutY="25.0" prefHeight="35.0" prefWidth="240.0" text="Appointment View ">
          <font>
@@ -81,8 +80,8 @@
                <Label text="Start Time (Your time)" GridPane.rowIndex="8" />
                <Label text="End Date" GridPane.rowIndex="9" />
                <Label text="End Time (Your time)" GridPane.rowIndex="10" />
-               <Label text="Customer ID" GridPane.rowIndex="11" />
-               <Label text="User ID" GridPane.rowIndex="12" />
+               <Label text="Customer" GridPane.rowIndex="11" />
+               <Label text="User" GridPane.rowIndex="12" />
 
                <TextField fx:id="newAppointmentIdText" disable="true" promptText="Auto Fill from DB" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                <TextField fx:id="newAppointmentTitleText" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -94,8 +93,9 @@
                <ComboBox fx:id="newAppointmentStartTime" prefWidth="150.0" promptText="Choose Time" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                <DatePicker fx:id="newAppointmentEndDate" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                <ComboBox fx:id="newAppointmentEndTime" prefWidth="150.0" promptText="Choose Time" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-               <TextField fx:id="newAppointmentCustomerIdText" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-               <TextField fx:id="newAppointmentUserIdText" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+               <ComboBox fx:id="newAppointmentCustomerCombo" prefHeight="25.0" prefWidth="192.0" promptText="Choose Customer" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+               <ComboBox fx:id="newAppointmentUserCombo" prefHeight="25.0" prefWidth="190.0" promptText="Choose User" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+
                <Label prefHeight="20.0" prefWidth="152.0" text="New Appointment" GridPane.columnIndex="1">
                    <font>
                        <Font name="System Bold" size="14.0" />
@@ -135,8 +135,8 @@
             <Label text="Start Time" GridPane.rowIndex="8" />
             <Label text="End Date" GridPane.rowIndex="9" />
             <Label text="End Time" GridPane.rowIndex="10" />
-            <Label text="Customer ID" GridPane.rowIndex="11" />
-            <Label text="User ID" GridPane.rowIndex="12" />
+            <Label text="Customer" GridPane.rowIndex="11" />
+            <Label text="User" GridPane.rowIndex="12" />
             <TextField fx:id="editAppointmentIdText" disable="true" promptText="Auto Fill from DB" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="editAppointmentTitleText" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="editAppointmentDescriptionText" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -147,13 +147,14 @@
             <ComboBox fx:id="editAppointmentStartTime" prefWidth="150.0" promptText="Choose Time" GridPane.columnIndex="1" GridPane.rowIndex="8" />
              <DatePicker fx:id="editAppointmentEndDate" GridPane.columnIndex="1" GridPane.rowIndex="9" />
              <ComboBox fx:id="editAppointmentEndTime" prefWidth="150.0" promptText="Choose Time" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <TextField fx:id="editAppointmentCustomerIdText" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-            <TextField fx:id="editAppointmentUserIdText" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+             <ComboBox fx:id="editAppointmentCustomerCombo" prefHeight="25.0" prefWidth="192.0" promptText="Choose Customer" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+             <ComboBox fx:id="editAppointmentUserCombo" prefHeight="25.0" prefWidth="190.0" promptText="Choose User" GridPane.columnIndex="1" GridPane.rowIndex="12" />
             <Label prefHeight="20.0" prefWidth="152.0" text="Edit Appointment" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+
 
 
 
