@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
+ * In this class we will have the Create, Read, Update and Delete files for the countries table from the MySQL server.
  */
 public class CountriesDaoImpl {
 
@@ -25,7 +25,7 @@ public class CountriesDaoImpl {
     }
 
     /**
-     *
+     * Retrieves a country based on the provided id.
      * @param id
      * @return
      */
@@ -39,8 +39,8 @@ public class CountriesDaoImpl {
     }
 
     /**
-     *
-     * @return
+     * This method retrieves all of the Countries from the MySQL Database.
+     * @return a list of all the countries
      */
     public static ObservableList<Countries> getAllCountries() {
 
@@ -68,5 +68,4 @@ public class CountriesDaoImpl {
         }
         return allCountries;
     }
-
 }

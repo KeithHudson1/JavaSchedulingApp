@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
+ * This is the Countries class for creating the Countries object.
  */
 public class Countries {
     private int countryId; // Country_ID INT(10) (PK)
@@ -34,7 +34,15 @@ public class Countries {
 
     /**
      *
-     * @return
+     * @return formatted string for the country combo boxes
+     */
+    @Override
+    public String toString () {
+        return ("" + Integer.toString(countryId) + " " + country + " " );
+    }
+
+    /**
+     * @return returns the id for the country
      */
     public int getCountryId() {
         return countryId;
@@ -42,7 +50,7 @@ public class Countries {
 
     /**
      *
-     * @param id
+     * @param id sets the id for the country
      */
     public void setCountryId(int id) {
         this.countryId = id;
@@ -50,7 +58,7 @@ public class Countries {
 
     /**
      *
-     * @return
+     * @return returns the country
      */
     public String getCountry() {
         return country;
@@ -58,7 +66,7 @@ public class Countries {
 
     /**
      *
-     * @param country
+     * @param country sets the country value
      */
     public void setCountry(String country) {
         this.country = country;
@@ -66,15 +74,14 @@ public class Countries {
 
     /**
      *
-     * @return
+     * @return returns the create date for the Country
      */
     public String getCreateDate() {
         return createDate;
     }
 
     /**
-     *
-     * @param createDate
+     * @param createDate sets the create date for the country
      */
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
@@ -82,7 +89,7 @@ public class Countries {
 
     /**
      *
-     * @return
+     * @return returns the created by string for teh country
      */
     public String getCreatedBy() {
         return createdBy;
@@ -90,7 +97,7 @@ public class Countries {
 
     /**
      *
-     * @param createdBy
+     * @param createdBy sets the created by string for the country
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
@@ -98,7 +105,7 @@ public class Countries {
 
     /**
      *
-     * @return
+     * @return returns the last update string for the country.
      */
     public String getLastUpdate() {
         return lastUpdate;
@@ -106,7 +113,7 @@ public class Countries {
 
     /**
      *
-     * @param lastUpdate
+     * @param lastUpdate sets the last update string for the country
      */
     public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
@@ -114,7 +121,7 @@ public class Countries {
 
     /**
      *
-     * @return
+     * @return returns the last update by string
      */
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
@@ -122,26 +129,16 @@ public class Countries {
 
     /**
      *
-     * @param lastUpdatedBy
+     * @param lastUpdatedBy sets the last update by string
      */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
-    /**
-     *
-     * @return
-     */
+    /** @return returns a list of countries */
     public static ObservableList<Countries> allCountries() {
         return CountriesDaoImpl.allCountries;
     }
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String toString () {
-        return ("" + Integer.toString(countryId) + " " + country + " " );
-    }
+
 }

@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
+ * This class retrieves First Level Country data from the MySQL server.
  */
 public class FirstLevelDivisionsDaoImpl {
 
@@ -18,8 +18,8 @@ public class FirstLevelDivisionsDaoImpl {
             FXCollections.observableArrayList();
 
     /**
-     *
-     * @return
+     * This retrieves a specific first level division with the provided id.
+     * @param id first level division id you are searching for
      */
     public static FirstLevelDivisions getFirstLevelDivision (int id) {
         for(FirstLevelDivisions div : allDivisions){
@@ -30,10 +30,9 @@ public class FirstLevelDivisionsDaoImpl {
         return null;
     }
 
-
     /**
-     *
-     * @return
+     * This returns a list of all the first level divisions for the drop down box.
+     * @return list of first level divisions
      */
     public static ObservableList<FirstLevelDivisions> getAllFirstLevelDivisions () {
         allDivisions.clear(); //Need to clear the list, otherwise the list gets

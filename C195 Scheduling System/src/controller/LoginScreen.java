@@ -1,8 +1,6 @@
 package controller;
 
-
 import DAO.DBConnection;
-import DAO.UsersDaoImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,19 +11,21 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.*;
 import javafx.scene.*;
 
-import javax.xml.transform.Result;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- *
+ * This is the controller for the initial login screen of the app.
+ * This handles the user credential check, location and language determination.
  */
 public class LoginScreen implements Initializable {
     public TextField userNameTextbox;
@@ -44,14 +44,13 @@ public class LoginScreen implements Initializable {
     public Label sysZoneidDetectedLbl;
     public TextField systemZoneIdTextField;
 
-    ObservableList<Locale> languageList =
-            FXCollections.observableArrayList(Locale.GERMAN, Locale.ENGLISH,
+    ObservableList<Locale> languageList = FXCollections.observableArrayList(Locale.GERMAN, Locale.ENGLISH,
                     new Locale("es"), Locale.FRENCH);
 
     /**
-     *
-     * @param url
-     * @param resourceBundle
+     * This initializes the Login Screen view, tables and combo boxes.
+     * @param url  location
+     * @param resourceBundle resources
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,18 +61,14 @@ public class LoginScreen implements Initializable {
         String currentLocale = Locale.getDefault().toString();
         String currentZoneId = ZoneId.systemDefault().toString();
 
-        System.out.println(currentLocale);
+//        System.out.println(currentLocale);
 //        System.out.println(currentZoneId);
 
         if (currentLocale.equals("de") || currentLocale.equals("en") || currentLocale.equals("en_US") || currentLocale.equals("es") || currentLocale.equals("fr")) {
-            ResourceBundle rb =
-                    ResourceBundle.getBundle("main/nat",
-                            Locale.getDefault());
+            ResourceBundle rb = ResourceBundle.getBundle("main/nat", Locale.getDefault());
 
-            sysLangDetectedLbl.setText(rb.getString("System Language " +
-                    "Detected"));
-            appLangSelect.setText(rb.getString("Application Language " +
-                    "Selection"));
+            sysLangDetectedLbl.setText(rb.getString("System Language Detected"));
+            appLangSelect.setText(rb.getString("Application Language Selection"));
             systemLanguageTextField.setText(rb.getLocale().getLanguage());
             languageSelectorBox.setValue(Locale.getDefault());
             sysZoneidDetectedLbl.setText(rb.getString("System Zone Id"));
@@ -83,15 +78,13 @@ public class LoginScreen implements Initializable {
             exitButton.setText(rb.getString("Exit"));
             userNameLabel.setText(rb.getString("Username"));
             passwordLabel.setText(rb.getString("Password"));
-            schedulingAppLbl.setText(rb.getString("Welcome to the Scheduling " +
-                    "App"));
-
+            schedulingAppLbl.setText(rb.getString("Welcome to the Scheduling App"));
         }
-
     }
 
     /**
-     * @param actionEvent
+     *  This handles the login credential check and error message handling.
+     * @param actionEvent from the Login button click.
      * @throws IOException
      */
     public void onLoginButton(ActionEvent actionEvent) throws IOException, SQLException {
@@ -102,52 +95,50 @@ public class LoginScreen implements Initializable {
             String password = passwordTextbox.getText();
 
             String sql = "SELECT * FROM users WHERE User_Name=? AND Password=?";
-            PreparedStatement ps =
-                    DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ps.setString(1,userName);
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
-            ResourceBundle rb =
-                    ResourceBundle.getBundle("main/nat",
-                            Locale.getDefault());
+            ResourceBundle rb = ResourceBundle.getBundle("main/nat", Locale.getDefault());
+
+            String filename = "login_activity.txt";
+
+            File file = new File(filename);
+            FileWriter fwriter = new FileWriter(filename, true);
+            PrintWriter outputFile = new PrintWriter(fwriter);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String nowLDT = LocalDateTime.now().format(formatter);
+
+            String currentZoneId = ZoneId.systemDefault().toString();
 
             if(userName.isEmpty() || password.isEmpty()){
-                errorMessagePane.setText(rb.getString("Please enter values " +
-                        "above"));
+                errorMessagePane.setText(rb.getString("Please enter values above"));
             }
             else if(!rs.next()) {
-                errorMessagePane.setText(rb.getString("Wrong Username and " +
-                        "Password"));
+                errorMessagePane.setText(rb.getString("Wrong Username and Password"));
+                outputFile.println("User " + userName + " gave invalid log-in at "+ nowLDT + " " + currentZoneId );
                 userNameTextbox.clear();
                 passwordTextbox.clear();
             }
             else{
+                outputFile.println("User " + userName + " successfully logged in at "+ nowLDT + " " + currentZoneId );
                 Stage stage = (Stage) loginButton.getScene().getWindow();
-                Parent root = FXMLLoader.load(getClass().getResource("/view" +
-                        "/MenuView.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/view/MenuView.fxml"));
                 stage.setTitle("Customer View");
                 stage.setScene(new Scene(root));
                 stage.show();
             }
-
-
-//            if (UsersDaoImpl.userCheck(userName, password)) {
-//                Stage stage = (Stage) loginButton.getScene().getWindow();
-//                Parent root = FXMLLoader.load(getClass().getResource("/view/CustomerView.fxml"));
-//                stage.setTitle("Customer View");
-//                stage.setScene(new Scene(root));
-//                stage.show();
-//            }
+            outputFile.close();
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
     }
 
-
     /**
-     * @param actionEvent
+     * This handles the app closing from the exit button click.
+     * @param actionEvent exit button click
      */
     public void onExitButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Exit Button clicked.");

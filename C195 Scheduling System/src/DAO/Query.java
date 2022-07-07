@@ -8,14 +8,7 @@ import DAO.DBConnection;
 import static DAO.DBConnection.connection;
 
 /**
- * Project: C195 Scheduling System
- * Package: sample.DAO
- * <p>
- * User: Keith Hudson
- * Date: 06/07/2022
- * <p>
- * Created with IntelliJ IDEA
- * To change this template use File | Settings | File Templates.
+ * This class houses the query statement.
  */
 public class Query {
     private static String query;

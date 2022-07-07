@@ -7,10 +7,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
- *
+ * This is the Appointment class for creating the Appointment objects.
  */
 public class Appointments {
-
 
     private int id; //    Appointment_ID INT(10) (PK)
     private String title; //    Title VARCHAR(50)
@@ -19,12 +18,7 @@ public class Appointments {
     private int contactId; //    Contact_ID INT(10) (FK)
     private String type; //    Type VARCHAR(50)
     private LocalDateTime startDateTime;
-//    private LocalDate startDate; //    Start DATETIME
-//    private LocalTime startTime;
-//    private ObservableList<LocalTime> startTime;
     private LocalDateTime endDateTime;
-//    private LocalDate endDate; //    End DATETIME
-//    private LocalTime endTime;
     private int customerId;//    Customer_ID INT(10) (FK)
     private int userId; //    User_ID INT(10) (FK)
 
@@ -32,12 +26,6 @@ public class Appointments {
     private String createdBy; //    Created_By VARCHAR(50)
     private LocalDateTime lastUpdate; //    Last_Update TIMESTAMP
     private String lastUpdatedBy; //    Last_Updated_By VARCHAR(50)
-
-//    private static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
-//    private static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
-//    private static ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
-//    private static ObservableList<Users> allUsers= FXCollections.observableArrayList();
-
 
     public Appointments(int id, String title, String description,
                         String location, String type,
@@ -52,11 +40,7 @@ public class Appointments {
         this.location = location;
         this.type = type;
         this.startDateTime = startDateTime;
-//        this.startDate = startDate;
-//        this.startTime = startTime;
         this.endDateTime = endDateTime;
-//        this.endDate = endDate;
-//        this.endTime = endTime;
         this.createDateTime = createDateTime;
         this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
@@ -68,7 +52,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return Returns the appointment id.
      */
     public int getID() {
         return id;
@@ -76,7 +60,7 @@ public class Appointments {
 
     /**
      *
-     * @param id
+     * @param id sets the id for the object
      */
     public void setID(int id) {
         this.id = id;
@@ -84,7 +68,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return returns the appointment title
      */
     public String getTitle() {
         return title;
@@ -92,7 +76,7 @@ public class Appointments {
 
     /**
      *
-      * @param title
+      * @param title sets the title for the object
      */
     public void setTitle(String title) {
         this.title = title;
@@ -100,7 +84,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return returns the description for the object
      */
     public String getDescription() {
         return description;
@@ -108,7 +92,7 @@ public class Appointments {
 
     /**
      *
-     * @param description
+     * @param description sets the description for the object
      */
     public void setDescription(String description) {
         this.description = description;
@@ -116,7 +100,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return returns the location for the object
      */
     public String getLocation() {
         return location;
@@ -124,7 +108,7 @@ public class Appointments {
 
     /**
      *
-     * @param location
+     * @param location sets the location for the object
      */
 
     public void setLocation(String location) {
@@ -133,7 +117,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return returns the type for the object
      */
     public String getType() {
         return type;
@@ -141,7 +125,7 @@ public class Appointments {
 
     /**
      *
-     * @param type
+     * @param type sets the type  for the object
      */
     public void setType(String type) {
         this.type = type;
@@ -149,7 +133,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return returns the start date time for the onject
      */
     public LocalDateTime getStartDateTime() {
         return startDateTime;
@@ -157,24 +141,15 @@ public class Appointments {
 
     /**
      *
-     * @param startDateTime
+     * @param startDateTime sets the start date time for the object
      */
     public void setStartDateTime(LocalDateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
 
-//    public LocalTime getStartTime() {
-//        return startTime;
-//    }
-//
-//    public void setStartTime(LocalTime startTime) {
-//        this.startTime = startTime;
-//    }
-
-
     /**
      *
-     * @return
+     * @return returns the end date time for the object.
      */
     public LocalDateTime getEndDateTime() {
         return endDateTime;
@@ -182,23 +157,15 @@ public class Appointments {
 
     /**
      *
-     * @param endDateTime
+     * @param endDateTime sets the end date time for the object
      */
     public void setEndDate(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
     }
 
-//    public LocalTime getEndTime() {
-//        return endTime;
-//    }
-//
-//    public void setEndTime(LocalTime endTime){
-//        this.endTime = endTime;
-//    }
-
     /**
      *
-     * @return
+     * @return returns the create date time for the object
      */
     public LocalDateTime getCreateDateTime() {
         return createDateTime;
@@ -206,7 +173,7 @@ public class Appointments {
 
     /**
      *
-     * @param createDateTime
+     * @param createDateTime sets the create date time for the object
      */
     public void setCreateDateTime(LocalDateTime createDateTime) {
         this.createDateTime = createDateTime;
@@ -214,7 +181,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return retrieves the created by string for the appointment
      */
     public String getCreatedBy() {
         return createdBy;
@@ -222,7 +189,7 @@ public class Appointments {
 
     /**
      *
-     * @param createdBy
+     * @param createdBy sets the created by string for the appointment
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
@@ -230,7 +197,7 @@ public class Appointments {
 
    /**
      *
-     * @param lastUpdate
+     * @param lastUpdate sets the last update Local Date Time for the appointment
      */
     public void setLastUpdate (LocalDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
@@ -238,7 +205,7 @@ public class Appointments {
 
     /**
      *
-     * @param lastUpdate
+     * @param lastUpdate gets the last update  Local Date Time for the appointment
      */
     public void getLastUpdate (LocalDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
@@ -246,7 +213,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return gets the last update by string for the appointment
      */
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
@@ -254,7 +221,7 @@ public class Appointments {
 
     /**
      *
-     * @param lastUpdatedBy
+     * @param lastUpdatedBy sets the last update by for the appointment
      */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
@@ -262,7 +229,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return returns the customer id for the appointment
      */
     public int getCustomerId() {
         return customerId;
@@ -270,7 +237,7 @@ public class Appointments {
 
     /**
      *
-     * @param customerId
+     * @param customerId sets the customer id for the appointment
      */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
@@ -278,7 +245,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return returns the user id for the appointment
      */
     public int getUserId() {
         return userId;
@@ -286,7 +253,7 @@ public class Appointments {
 
     /**
      *
-     * @param userId
+     * @param userId sets the user id for the appointment
      */
     public void setUserId(int userId) {
         this.userId = userId;
@@ -294,7 +261,7 @@ public class Appointments {
 
     /**
      *
-     * @return
+     * @return returns the contact id for the object
      */
     public int getContactId() {
         return contactId;
@@ -302,18 +269,10 @@ public class Appointments {
 
     /**
      *
-     * @param contactId
+     * @param contactId sets the contact id for the object
      */
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
 
-    /**
-     *
-     * @param newAppt
-     */
-    public static void addAppointment (Appointments newAppt){
-
-        // allAppointments.add(newAppt);
-    }
 }

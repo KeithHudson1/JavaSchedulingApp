@@ -8,13 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * In this class we will have the Create, Read, Update and Delete files for the contacts table from the MySQL server.
+ */
 public class ContactsDaoImpl {
     private static ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
 
 
     /**
-     *
-     * @return
+     * This method obtains all of the contacts from the contacts table.
+     * @return Returns a list of all contacts.
      */
     public static ObservableList<Contacts> getAllContacts() {
         allContacts.clear(); //Need to clear the list, otherwise the list gets duplicated.
@@ -39,6 +42,11 @@ public class ContactsDaoImpl {
         return allContacts;
     }
 
+    /**
+     * This method retrieves a specific contact from the contacts table based on provided contact id.
+     * @param id The contact id of the searched contact.
+     * @return Returns the specific contact.
+     */
     public static Contacts getContact(int id) {
         for (Contacts c : allContacts) {
             if (c.getId() == id) {

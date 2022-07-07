@@ -10,10 +10,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 /**
- *
+ * This is the Customers class for creating the Customer object.
  */
 public class Customers {
-
 
     private int customerId;  // Customer_ID INT(10) (PK)
     private String name; //Customer_Name VARCHAR(50)
@@ -29,19 +28,6 @@ public class Customers {
 //    private static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();;
 //    private static ObservableList<FirstLevelDivisions> allFirstLevelDivisions = FXCollections.observableArrayList();
 
-    /**
-     *
-     * @param customerId
-     * @param name
-     * @param address
-     * @param postalCode
-     * @param phone
-     * @param createDate
-     * @param createdBy
-     * @param lastUpdate
-     * @param lastUpdatedBy
-     * @param divisionId
-     */
     public Customers(int customerId, String name, String address, String postalCode,
                      String phone, LocalDateTime createDate, String createdBy,
                      LocalDateTime lastUpdate, String lastUpdatedBy, int divisionId) {

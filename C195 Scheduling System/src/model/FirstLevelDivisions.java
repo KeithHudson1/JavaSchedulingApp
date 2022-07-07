@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
+ * This handles the first level division object creation.
  */
 public class FirstLevelDivisions {
 

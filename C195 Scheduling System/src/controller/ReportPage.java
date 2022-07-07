@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class is the controller for the report page of the app.
  */
 public class ReportPage implements Initializable {
     public Button backButton;
@@ -73,8 +73,6 @@ public class ReportPage implements Initializable {
 
     public TabPane customerAppointmentTable;
 
-
-
     public TabPane contactAppointmentTable;
     public Tab customersTab1;
     public TableView<Appointments> customersAppointmentTable;
@@ -89,9 +87,9 @@ public class ReportPage implements Initializable {
 
 
     /**
-     *
-     * @param url
-     * @param resourceBundle
+     * This handles the intiialize and table loading for the report page.
+     * @param url location
+     * @param resourceBundle resources
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -174,18 +172,8 @@ public class ReportPage implements Initializable {
             int i = 1 ;
             for (Contacts c : allContacts) {
                 contactAppointmentTable.getTabs().get(i-1).setText("Contact " + c.getId() + " Appointments");
-//                Tab currentTab =
-//                TableView currentTableView =
-//                        contactAppointmentTable.ge
-//                customersAppointmentTable.setItems(AppointmentsDaoImpl.getAppointmentForContact(i));
-//                contactAppointmentTable.getTabs(i-1).get(setItems(AppointmentsDaoImpl.getAppointmentForContact(c.getId());
-
                 i++;
             }
-
-
-
-
         } catch (Exception e){
             Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE,
                     null, e);
@@ -193,9 +181,9 @@ public class ReportPage implements Initializable {
     }
 
     /**
-     *
-     * @param actionEvent
-     * @throws IOException
+     * This handles the change to the Menu View.
+     * @param actionEvent from the Back button click
+     * @throws IOException .
      */
     public void onBackButton(ActionEvent actionEvent) throws IOException {
         System.out.println(getClass().getName() + " :Back Button clicked.");
@@ -208,8 +196,8 @@ public class ReportPage implements Initializable {
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles the closing of te app.
+     * @param actionEvent from the Exit button click
      */
     public void onExitButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Exit Button clicked.");

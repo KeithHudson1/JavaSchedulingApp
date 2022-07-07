@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 /**
- *
+ * This class houses the needed things to initialize and load the Appointment View for the app.
  */
 public class AppointmentView implements Initializable {
 
@@ -98,10 +98,12 @@ public class AppointmentView implements Initializable {
 //    ObservableList<Contacts> contactList =
 //            ContactsDaoImpl.getAllContacts();
 
-    @Override
-    /**
-     *
+     /**
+     * This handles the initial loading of the appointment view window.
+      * @param url location
+      * @param resourceBundle resources
      */
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(getClass().getName() + " in initialize.");
 
@@ -116,8 +118,7 @@ public class AppointmentView implements Initializable {
         apptCustomerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-        ObservableList<String> typeOptions =
-                FXCollections.observableArrayList();
+        ObservableList<String> typeOptions = FXCollections.observableArrayList();
         typeOptions.add("De-Briefing");
         typeOptions.add("Planning Session");
         typeOptions.add("One-on-One");
@@ -127,7 +128,6 @@ public class AppointmentView implements Initializable {
 
 //        LocalTime start = LocalTime.of(6, 00);
 //        LocalTime end = LocalTime.of(17, 00);
-//FIXME: These time checks are not wokring correctly.
         LocalDate easternDate = LocalDate.now();
         LocalTime easternStartTime = LocalTime.of(8,0);
         ZoneId easternZoneId = ZoneId.of("America/New_York");
@@ -166,17 +166,14 @@ public class AppointmentView implements Initializable {
             editAppointmentUserCombo.setItems(UserDaoImpl.getAllUsers());
             newAppointmentUserCombo.setItems(UserDaoImpl.getAllUsers());
 
-
-
         } catch (Exception e) {
-            Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE,
-                    null, e);
+            Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles the filtering of the table view to the appointments for the next 30 days.
+     * @param actionEvent from the all appointments radial
      */
     public void onAllAppointmentsRadial(ActionEvent actionEvent) {
         try {
@@ -190,8 +187,8 @@ public class AppointmentView implements Initializable {
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles the filtering of the appointment table view to the next 30 days.
+     * @param actionEvent from the Next 30 Buttons radial
      */
     public void onThisMonthAppointmentsRadial(ActionEvent actionEvent) {
         try {
@@ -200,14 +197,13 @@ public class AppointmentView implements Initializable {
             appointmentList.addAll(AppointmentsDaoImpl.getAppointments(daysAhead));
             appointmentTableView.setItems(appointmentList);
         } catch (Exception e) {
-            Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE,
-                    null, e);
+            Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles the filtering of the appointment table view to this week.
+     * @param actionEvent from the Next 7 Buttons radial
      */
     public void onThisWeekAppointmentsRadial(ActionEvent actionEvent) {
         try {
@@ -216,14 +212,13 @@ public class AppointmentView implements Initializable {
             appointmentList.addAll(AppointmentsDaoImpl.getAppointments(daysAhead));
             appointmentTableView.setItems(appointmentList);
         } catch (Exception e) {
-            Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE,
-                    null, e);
+            Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles the loading of the edit appointment fields of the selected item in the table.
+     * @param actionEvent from the edit appointment button click
      */
     public void onEditAppointmentButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Edit Appointment Button clicked.");
@@ -250,8 +245,8 @@ public class AppointmentView implements Initializable {
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles the
+     * @param actionEvent from the Delete Appointment button click
      */
     public void onDeleteAppointmentButton(ActionEvent actionEvent) throws SQLException {
         System.out.println(getClass().getName() + " :Delete Appointment Button clicked.");
@@ -263,31 +258,28 @@ public class AppointmentView implements Initializable {
                     "deleted" +
                     ".", selectedAppointment.getID());
             errorMessageLbl.setText(errorMessage);
-            errorMessageLbl.wait(15000);
-            errorMessageLbl.setText("");
         } catch (Exception throwables) {
             throwables.printStackTrace();
         }
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles the loading of the menu page due to the back button click.
+     * @param actionEvent from the back button click.
      * @throws IOException
      */
     public void onBackButton(ActionEvent actionEvent) throws IOException {
         System.out.println(getClass().getName() + " :Back Button clicked.");
 
         Stage stage = (Stage) backButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/view" +
-                "/MenuView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/MenuView.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     /**
-     *
-     * @param actionEvent
+     * THis handles the closing of the app.
+     * @param actionEvent from the exit button click
      */
     public void onExitButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Exit Button clicked.");
@@ -302,8 +294,9 @@ public class AppointmentView implements Initializable {
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles the date and time collision check for the edit appointment fields then
+     * passes the data to the DAO for appointment creation.
+     * @param actionEvent from the Save Changes button click
      */
     public void onEditAppointmentSaveChangesButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Save Changes Button clicked.");
@@ -433,12 +426,11 @@ public class AppointmentView implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
-     *
-     * @param actionEvent
+     * This clears the edit appointment fields.
+     * @param actionEvent from the Cancel Changes button click
      */
     public void onEditAppointmentCancelChangesButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Cancel Changes Button clicked.");
@@ -459,8 +451,8 @@ public class AppointmentView implements Initializable {
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles appointment date and time collision then passes the data to create the Appointment.
+     * @param actionEvent from the Save New Appointment button click
      */
     public void onNewAppointmentSaveButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Save New Appointment Button clicked.");
@@ -577,7 +569,7 @@ public class AppointmentView implements Initializable {
             appointmentTableView.setItems(AppointmentsDaoImpl.getAllAppointments());
             errorMessageLbl.setText("New appointment saved.");
 
-            //         Muting this out for now.
+            //         FIXME: Muting this out for now.
 //            newAppointmentIdText.clear();
 //            newAppointmentTitleText.clear();
 //            newAppointmentDescriptionText.clear();
@@ -605,8 +597,8 @@ public class AppointmentView implements Initializable {
     }
 
     /**
-     *
-     * @param actionEvent
+     * This handles the New Appointment field clearing.
+     * @param actionEvent from the clear button click
      */
     public void onNewAppointmentClearButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Clear Button clicked.");

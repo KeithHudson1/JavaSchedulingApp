@@ -16,12 +16,29 @@ import java.util.Optional;
 import java.util.TimeZone;
 
 /**
- *
+ * In this class we will have the Create, Read, Update and Delete files for the appointments table from the MySQL server.
  */
 // In Malcolm's JDBC presentation he has his Dao class as abstract since this
 // is not building any objects.
 public abstract class AppointmentsDaoImpl {
 
+    /**
+     * This method creates a new appointment and inserts it into the MySQL database.
+     * @param title appointment title
+     * @param description appointment description
+     * @param location appointment location
+     * @param type appointment type
+     * @param startDateTime appointment start date and time
+     * @param endDateTime appointment end date and time
+     * @param createDate appointment create date and time
+     * @param createdBy appointment created by value
+     * @param lastUpdateDateTime appointment last update date and time
+     * @param lastUpdatedBy appointment last update by value
+     * @param customerId appointment customer id
+     * @param userId appointment user id
+     * @param contactId appointment contact id
+     * @throws SQLException
+     */
     public static int insert (String title, String description,
                               String location, String type,
                               LocalDateTime startDateTime,
@@ -51,13 +68,10 @@ public abstract class AppointmentsDaoImpl {
             // DATETIME;
 
 //            LocalDateTime endDayTime = LocalDateTime.of(endDate, endTime);
-            ps.setTimestamp(6, Timestamp.valueOf(endDateTime)); // End
-            // DATETIME;
-            ps.setTimestamp(7, Timestamp.valueOf(createDate));
-            //Create_Date DATETIME;
+            ps.setTimestamp(6, Timestamp.valueOf(endDateTime)); // End DATETIME;
+            ps.setTimestamp(7, Timestamp.valueOf(createDate));//Create_Date DATETIME;
             ps.setString(8, createdBy);
-            ps.setTimestamp(9, Timestamp.valueOf(lastUpdateDateTime));
-            // Last_Update TIMESTAMP;
+            ps.setTimestamp(9, Timestamp.valueOf(lastUpdateDateTime));// Last_Update TIMESTAMP;
             ps.setString(10, lastUpdatedBy);
             ps.setInt(11, customerId); // This is a Foreign key!
             ps.setInt(12, userId); //This is a foreign key!
@@ -70,9 +84,7 @@ public abstract class AppointmentsDaoImpl {
             else{
                 System.out.println("INSERT FAILED!");
             }
-
             return rowsAffected;
-
         }
         catch(SQLException throwables){
             throwables.printStackTrace();
@@ -84,6 +96,23 @@ public abstract class AppointmentsDaoImpl {
         return 0;
     }
 
+    /**
+     * This method updates an appointment and pushes the changes into the MySQL database.
+     * @param title appointment title
+     * @param description appointment description
+     * @param location appointment location
+     * @param type appointment type
+     * @param startDateTime appointment start date and time
+     * @param endDateTime appointment end date and time
+     * @param createDateTime appointment create date and time
+     * @param createdBy appointment created by value
+     * @param lastUpdate appointment last update date and time
+     * @param lastUpdatedBy appointment last update by value
+     * @param customerId appointment customer id
+     * @param userId appointment user id
+     * @param contactId appointment contact id
+     * @throws SQLException
+     */
 
     public static int update (int id, String title, String description,
                               String location, String type,
@@ -111,13 +140,10 @@ public abstract class AppointmentsDaoImpl {
             // DATETIME;
 
 //            LocalDateTime endDayTime = LocalDateTime.of(endDate, endTime);
-            ps.setTimestamp(6, Timestamp.valueOf(endDateTime)); // End
-            // DATETIME;
-            ps.setTimestamp(7, Timestamp.valueOf(createDateTime));
-            //Create_Date DATETIME;
+            ps.setTimestamp(6, Timestamp.valueOf(endDateTime)); // End// DATETIME;
+            ps.setTimestamp(7, Timestamp.valueOf(createDateTime));//Create_Date DATETIME;
             ps.setString(8, createdBy);
-            ps.setTimestamp(9, Timestamp.valueOf(lastUpdate));
-            // Last_Update TIMESTAMP;
+            ps.setTimestamp(9, Timestamp.valueOf(lastUpdate));// Last_Update TIMESTAMP;
             ps.setString(10, lastUpdatedBy);
             ps.setInt(11, customerId); // This is a Foreign key!
             ps.setInt(12, userId); //This is a foreign key!
@@ -131,9 +157,7 @@ public abstract class AppointmentsDaoImpl {
             else{
                 System.out.println("INSERT FAILED!");
             }
-
             return rowsAffected;
-
         }
         catch(SQLException throwables){
             throwables.printStackTrace();
@@ -147,9 +171,8 @@ public abstract class AppointmentsDaoImpl {
     }
 
     /**
-     *
-     * @param appointmentId
-     * @return
+     * This method deletes the appointment with the provided appointment id from the MySQL database.
+     * @param appointmentId appointment id for deletion
      * @throws SQLException
      */
     public static int delete(int appointmentId) throws SQLException{
@@ -172,6 +195,11 @@ public abstract class AppointmentsDaoImpl {
         return 0;
     }
 
+    /**
+     * This method retrieves an Appointment which matches the provided appointment id.
+     * @param appointmentId appointment id for locating.
+     * @throws Exception
+     */
     public static Appointments getAppointment (int appointmentId) throws Exception {
         ObservableList<Appointments> allAppointments =
                 AppointmentsDaoImpl.getAllAppointments();

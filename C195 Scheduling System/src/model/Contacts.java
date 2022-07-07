@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
+ * This is the Contact class for creating the Contact objects.
  */
 public class Contacts {
     private int id; //Contact_ID INT(10) (PK)
@@ -23,6 +23,10 @@ public class Contacts {
         this.email = email;
     }
 
+    /**
+     *
+     * @return a formatted string for the combo box
+     */
     @Override
     public String toString() {
         return id + " " + contactName;
@@ -30,7 +34,7 @@ public class Contacts {
 
     /**
      *
-     * @return
+     * @return returns the contact id
      */
     public int getId() {
         return id;
@@ -38,7 +42,7 @@ public class Contacts {
 
     /**
      *
-     * @param id
+     * @param id sets the id for the contact
      */
     public void setId(int id) {
         this.id = id;
@@ -46,7 +50,7 @@ public class Contacts {
 
     /**
      *
-     * @return
+     * @return returns the name for the contact
      */
     public String getContactName() {
         return contactName;
@@ -54,7 +58,7 @@ public class Contacts {
 
     /**
      *
-     * @param contactName
+     * @param contactName sets the contact name for the contact
      */
     public void setContactName(String contactName) {
         this.contactName = contactName;
@@ -62,7 +66,7 @@ public class Contacts {
 
     /**
      *
-     * @return
+     * @return returns the email for the contact
      */
     public String getEmail() {
         return email;
@@ -70,7 +74,7 @@ public class Contacts {
 
     /**
      *
-     * @param email
+     * @param email sets the email for the contact
      */
     public void setEmail(String email) {
         this.email = email;

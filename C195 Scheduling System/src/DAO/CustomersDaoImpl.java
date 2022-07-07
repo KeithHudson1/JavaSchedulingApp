@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
- *
+ * In this class we will have the Create, Read, Update and Delete files for the customers table from the MySQL server.
  */
 public class CustomersDaoImpl {
 
@@ -22,17 +22,16 @@ public class CustomersDaoImpl {
 //    }
 
     /**
-     *
-     * @param name
-     * @param address
-     * @param postalCode
-     * @param phone
-     * @param createDateTime
-     * @param createdBy
-     * @param lastUpdateDateTime
-     * @param lastUpdatedBy
-     * @param divisionId
-     * @return
+     * Inserts the Customer into the customer table in the MySQL database.
+     * @param name customer name
+     * @param address customer address
+     * @param postalCode  customer postal code
+     * @param phone customer phone
+     * @param createDateTime  customer create date and time
+     * @param createdBy  customer created by value
+     * @param lastUpdateDateTime  customer last update date and time
+     * @param lastUpdatedBy  customer last update by value
+     * @param divisionId  customer division id
      * @throws SQLException
      */
     public static int insert(String name, String address,
@@ -54,11 +53,9 @@ public class CustomersDaoImpl {
             ps.setString(3, postalCode);
             ps.setString(4, phone);
 
-            ps.setTimestamp(5, Timestamp.valueOf(createDateTime));
-            //Create_Date DATETIME;
+            ps.setTimestamp(5, Timestamp.valueOf(createDateTime));//Create_Date DATETIME;
             ps.setString(6, createdBy);
-            ps.setTimestamp(7, Timestamp.valueOf(lastUpdateDateTime));
-            // Last_Update TIMESTAMP;
+            ps.setTimestamp(7, Timestamp.valueOf(lastUpdateDateTime));// Last_Update TIMESTAMP;
             ps.setString(8, lastUpdatedBy);
             ps.setInt(9, divisionId); // This is a foreign key
 
@@ -70,7 +67,6 @@ public class CustomersDaoImpl {
             }
             return rowsAffected;
 
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -78,18 +74,17 @@ public class CustomersDaoImpl {
     }
 
     /**
-     *
-     * @param id
-     * @param name
-     * @param address
-     * @param postalCode
-     * @param phone
-     * @param createDateTime
-     * @param createdBy
-     * @param lastUpdateDateTime
-     * @param lastUpdatedBy
-     * @param divisionId
-     * @return
+     * This method updates a specific customer in the MySQL database.
+     * @param id customer id
+     * @param name  customer name
+     * @param address  customer address
+     * @param postalCode  customer postal code
+     * @param phone customer phone number
+     * @param createDateTime  customer create date and time
+     * @param createdBy customer created by value
+     * @param lastUpdateDateTime  customer last updated date and time
+     * @param lastUpdatedBy  customer last update by value
+     * @param divisionId  customer division id
      * @throws SQLException
      */
     public static int update(int id, String name, String address,
@@ -111,11 +106,9 @@ public class CustomersDaoImpl {
             ps.setString(3, postalCode);
             ps.setString(4, phone);
 
-            ps.setTimestamp(5, Timestamp.valueOf(createDateTime));
-            //Create_Date DATETIME;
+            ps.setTimestamp(5, Timestamp.valueOf(createDateTime));//Create_Date DATETIME;
             ps.setString(6, createdBy);
-            ps.setTimestamp(7, Timestamp.valueOf(lastUpdateDateTime));
-            // Last_Update TIMESTAMP;
+            ps.setTimestamp(7, Timestamp.valueOf(lastUpdateDateTime));// Last_Update TIMESTAMP;
             ps.setString(8, lastUpdatedBy);
             ps.setInt(9, divisionId); // This is a foreign key
             ps.setInt(10, id);
@@ -136,9 +129,8 @@ public class CustomersDaoImpl {
     }
 
     /**
-     *
-     * @param customerId
-     * @return
+     * This method deletes the customer from the customer table in the mySQL database based on the provided id.
+     * @param customerId customer id which you are wanting to delete
      * @throws SQLException
      */
     public static int delete(int customerId) throws SQLException {
@@ -162,9 +154,8 @@ public class CustomersDaoImpl {
     }
 
     /**
-     *
-     * @param customerId
-     * @return
+     * Retrieves the customer object based on the customer id in teh MySQL database.
+     * @param customerId customer id being searched for
      */
     public static Customers getCustomer (int customerId) {
         ObservableList<Customers> allCustomers =
@@ -180,8 +171,8 @@ public class CustomersDaoImpl {
     }
 
     /**
-     *
-     * @return
+     * Retrieves a list of all customers form the MySQL database.
+     * @return a list of all customers
      */
     public static ObservableList<Customers> getAllCustomers() {
         ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
@@ -223,6 +214,4 @@ public class CustomersDaoImpl {
         }
         return allCustomers;
     }
-
-
 }

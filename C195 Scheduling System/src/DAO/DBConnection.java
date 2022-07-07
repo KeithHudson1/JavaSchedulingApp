@@ -2,20 +2,11 @@ package DAO;
 
 import java.sql.*;
 
-/**
- * Project: C195 Scheduling System
- * Package: sample.DAO
- * <p>
- * User: Keith Hudson
- * Date: 06/07/2022
- * <p>
- * Created with IntelliJ IDEA
- * To change this template use File | Settings | File Templates.
- */
-
 // Malcolm's JDBC presentation has his JDBC class as abstract because this
 // isn't used to create Objects. It's just for DB connection.
-
+/**
+ * This class houses the credentials and process to access the MySQL server.
+ */
 public abstract class DBConnection {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -44,7 +35,7 @@ public abstract class DBConnection {
     }
 
     /**
-     *
+     * THis method is used to retrieve the connection.
      * @return
      */
     public static Connection getConnection() {
