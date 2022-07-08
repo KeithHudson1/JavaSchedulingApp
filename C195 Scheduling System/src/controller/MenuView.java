@@ -45,7 +45,7 @@ public class MenuView implements Initializable {
             e.printStackTrace();
         }
         if (approachingAppointments.isEmpty()) {
-            Alert upcomingAppointment = new Alert(Alert.AlertType.INFORMATION, "There are no upcoming appointments.");
+            Alert upcomingAppointment = new Alert(Alert.AlertType.INFORMATION, "There are no appointments in the next 15 minutes.");
             upcomingAppointment.showAndWait();
             //            Optional<ButtonType> result = exit.showAndWait();
         }

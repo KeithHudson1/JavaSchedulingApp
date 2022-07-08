@@ -245,8 +245,8 @@ public abstract class AppointmentsDaoImpl {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("COUNT(Appointment_ID)");
-                String type = resultSet.getString("Type");
-                Appointments a = new Appointments(id, type);
+                String typeZ = resultSet.getString("Type");
+                Appointments a = new Appointments(id, typeZ);
                 appointmentsByMonthAndType.add(a);
             }
         }
@@ -326,9 +326,16 @@ public abstract class AppointmentsDaoImpl {
         return thisWeeksAppointments;
     }
 
+    /**
+     * 
+     * @param minutesAhead
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     public static ObservableList<Appointments> getNearAppointments(int minutesAhead) throws SQLException, Exception{
 
-        ObservableList<Appointments> approcahingAppointments = FXCollections.observableArrayList();
+        ObservableList<Appointments> approachingAppointments = FXCollections.observableArrayList();
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd " +
                 "hh:mm:ss");
@@ -380,13 +387,13 @@ public abstract class AppointmentsDaoImpl {
                         createDateTime, createdBy, lastUpdateDateTime,
                         lastUpdatedBy,
                         customerId, userId, contactId);
-                approcahingAppointments.add(A);
+                approachingAppointments.add(A);
             }
         }
         catch(SQLException throwables) {
             throwables.printStackTrace();
         }
-        return approcahingAppointments;
+        return approachingAppointments;
     }
 
     /**

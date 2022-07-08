@@ -121,7 +121,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="appointmentNumberLbl" layoutX="281.0" layoutY="110.0">
+      <Label fx:id="appointmentNumberLbl" layoutX="274.0" layoutY="107.0" prefHeight="20.0" prefWidth="29.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -133,11 +133,16 @@
       </Label>
       <Label layoutX="484.0" layoutY="147.0" prefHeight="17.0" prefWidth="87.0" text="Filter by Month" />
       <ComboBox fx:id="monthSelectorBox" layoutX="582.0" layoutY="143.0" onAction="#onMonthSelectorBox" prefWidth="150.0" promptText="Choose Month" />
-      <TableView fx:id="appointmentByTypeTable"  layoutX="57.0" layoutY="177.0" prefHeight="135.0" prefWidth="271.0">
+      <TableView fx:id="appointmentByTypeTable" layoutX="57.0" layoutY="177.0" prefHeight="135.0" prefWidth="271.0">
         <columns>
           <TableColumn fx:id="typeColumn" prefWidth="97.0" text="Type" />
           <TableColumn fx:id="countColumn" prefWidth="103.0" text="Count" />
         </columns>
       </TableView>
+      <Label fx:id="monthFilterLbl" layoutX="490.0" layoutY="189.0" prefHeight="20.0" prefWidth="185.0" textFill="#eb1a1a">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

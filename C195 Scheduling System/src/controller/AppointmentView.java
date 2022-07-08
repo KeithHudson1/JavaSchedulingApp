@@ -355,39 +355,33 @@ public class AppointmentView implements Initializable {
             for (Appointments a : appointmentList) {
                 LocalDateTime aStart = a.getStartDateTime();
                 LocalDateTime aEnd = a.getEndDateTime();
-//                System.out.println("In the for loop");
-//                System.out.println("Appt A start utc time: " + aStart);
-//                System.out.println("Appt A end utc time: " + aEnd);
-//                System.out.println("Appt entered start utc time: " + utcStartDateTime);
-//                System.out.println("Appt entered start utc time: " + utcEndDateTime);
+                LocalDateTime nowLDT = LocalDateTime.now();
+                System.out.println("In the for loop");
 
-                if(a.getID() != id) {
-                    if(customerId == a.getCustomerId()) {
-                        if(localStartDateTime.isBefore(LocalDateTime.now())){
-                            errorMessageLbl.setText("Your start time is in the past.");
-                            break Save;
-                        }
-                        else if(localStartDateTime.isAfter(localEndDateTime)){
-                            errorMessageLbl.setText("Your submitted End time is before your Start time.");
-                            break Save;
-                        }
-                        else if(((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
-                            errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
-                            break Save;
-                        }
-                        else if(localEndDateTime.isAfter(aStart) && (localEndDateTime.isBefore(aEnd) || localEndDateTime.isEqual(aEnd))) {
-                            errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
-                            break Save;
-                        }
-                        else if((localStartDateTime.isBefore(aStart) || localStartDateTime.isEqual(aStart)) && (localEndDateTime.isAfter(aEnd) || localEndDateTime.isEqual(aEnd))) {
-                            errorMessageLbl.setText("Your times enclose appt " + a.getID() + " for that customer.");
-                            break Save;
+                if (aStart.isAfter(nowLDT)) {
+                    if (a.getID() != id) {
+                        if (customerId == a.getCustomerId()) {
+                            if (localStartDateTime.isBefore(LocalDateTime.now())) {
+                                errorMessageLbl.setText("Your start time is in the past.");
+                                break Save;
+                            } else if (localStartDateTime.isAfter(localEndDateTime)) {
+                                errorMessageLbl.setText("Your submitted End time is before your Start time.");
+                                break Save;
+                            } else if (((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
+                                errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
+                                break Save;
+                            } else if (localEndDateTime.isAfter(aStart) && (localEndDateTime.isBefore(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                                errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
+                                break Save;
+                            } else if ((localStartDateTime.isBefore(aStart) || localStartDateTime.isEqual(aStart)) && (localEndDateTime.isAfter(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                                errorMessageLbl.setText("Your times enclose appt " + a.getID() + " for that customer.");
+                                break Save;
+                            }
                         }
                     }
                 }
             }
-//                      If it passes all the collision checks, it will then
-//                      complete the appointment addition.
+//           If it passes all the collision checks, it will then complete the appointment addition.
             System.out.println("No collisions found " +
                     "in the scheduling. Creating " +
                     "Appointment.");
@@ -522,32 +516,27 @@ public class AppointmentView implements Initializable {
             for (Appointments a : appointmentList) {
                 LocalDateTime aStart = a.getStartDateTime();
                 LocalDateTime aEnd = a.getEndDateTime();
-//                System.out.println("In the for loop");
-//                System.out.println("Appt A start utc time: " + aStart);
-//                System.out.println("Appt A end utc time: " + aEnd);
-//                System.out.println("Appt entered start utc time: " + utcStartDateTime);
-//                System.out.println("Appt entered start utc time: " + utcEndDateTime);
+                LocalDateTime nowLDT = LocalDateTime.now();
+                System.out.println("In the for loop");
 
-                if(customerId == a.getCustomerId()) {
-                    if(localStartDateTime.isBefore(LocalDateTime.now())){
-                        errorMessageLbl.setText("Your start time is in the past.");
-                        break Save;
-                    }
-                    else if(localStartDateTime.isAfter(localEndDateTime)){
-                        errorMessageLbl.setText("Your submitted End time is before your Start time.");
-                        break Save;
-                    }
-                    else if(((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
-                        errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
-                        break Save;
-                    }
-                    else if(localEndDateTime.isAfter(aStart) && (localEndDateTime.isBefore(aEnd) || localEndDateTime.isEqual(aEnd))) {
-                        errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
-                        break Save;
-                    }
-                    else if((localStartDateTime.isBefore(aStart) || localStartDateTime.isEqual(aStart)) && (localEndDateTime.isAfter(aEnd) || localEndDateTime.isEqual(aEnd))) {
-                        errorMessageLbl.setText("Your times enclose appt " + a.getID() + " for that customer.");
-                        break Save;
+                if (aStart.isAfter(nowLDT)) {
+                    if (customerId == a.getCustomerId()) {
+                        if (localStartDateTime.isBefore(LocalDateTime.now())) {
+                            errorMessageLbl.setText("Your start time is in the past.");
+                            break Save;
+                        } else if (localStartDateTime.isAfter(localEndDateTime)) {
+                            errorMessageLbl.setText("Your submitted End time is before your Start time.");
+                            break Save;
+                        } else if (((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
+                            errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
+                            break Save;
+                        } else if (localEndDateTime.isAfter(aStart) && (localEndDateTime.isBefore(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                            errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
+                            break Save;
+                        } else if ((localStartDateTime.isBefore(aStart) || localStartDateTime.isEqual(aStart)) && (localEndDateTime.isAfter(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                            errorMessageLbl.setText("Your times enclose appt " + a.getID() + " for that customer.");
+                            break Save;
+                        }
                     }
                 }
             }

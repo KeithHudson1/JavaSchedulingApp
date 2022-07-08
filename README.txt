@@ -34,6 +34,8 @@ Clicking Run within the IDE will start the program and present a login page. Log
 
 
 •  A description of the additional report of your choice you ran in part A3f
+The additional report I included was a total number of appointments. This is a quick and easy way to see if customers are setting up appointments.
+
 
 •   MySQL Connector driver version number
 mysql-connector-java-8.0.29

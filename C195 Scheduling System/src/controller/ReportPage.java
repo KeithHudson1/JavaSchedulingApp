@@ -76,26 +76,27 @@ public class ReportPage implements Initializable {
 
     public Tab customersTab1;
     public TableView<Appointments> customersAppointmentTable;
-    public TableColumn apptContactIdCol1;
-    public TableColumn apptIdCol1;
-    public TableColumn apptTitleCol1;
-    public TableColumn apptDescriptionCol1;
-    public TableColumn apptTypeCol1;
-    public TableColumn apptStartDateAndTimeCol1;
-    public TableColumn apptEndDateAndTimeCol1;
-    public TableColumn apptCustomerIdCol1;
+    public TableColumn<?,?> apptContactIdCol1;
+    public TableColumn<?,?> apptIdCol1;
+    public TableColumn<?,?> apptTitleCol1;
+    public TableColumn<?,?> apptDescriptionCol1;
+    public TableColumn<?,?> apptTypeCol1;
+    public TableColumn<?,?> apptStartDateAndTimeCol1;
+    public TableColumn<?,?> apptEndDateAndTimeCol1;
+    public TableColumn<?,?> apptCustomerIdCol1;
     public TabPane contactAppointmentTabPane;
-    public TableView contactsAppointmentTable;
-    public TableView contactsAppointmentTable2;
-    public TableView contactsAppointmentTable3;
-    public TableView contactsAppointmentTable5;
-    public TableView contactsAppointmentTable4;
+    public TableView<Appointments> contactsAppointmentTable;
+    public TableView<?> contactsAppointmentTable2;
+    public TableView<?> contactsAppointmentTable3;
+    public TableView<?> contactsAppointmentTable5;
+    public TableView<?> contactsAppointmentTable4;
     public ComboBox<Contacts> contactFilterComboBox;
     public Label appointmentNumberLbl;
     public ComboBox monthSelectorBox;
     public TableView<Appointments> appointmentByTypeTable;
-    public TableColumn typeColumn;
-    public TableColumn countColumn;
+    public TableColumn<?,?>typeColumn;
+    public TableColumn<?,?>countColumn;
+    public Label monthFilterLbl;
 
 
     /**
@@ -180,6 +181,7 @@ public class ReportPage implements Initializable {
             ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
             allContacts.addAll(ContactsDaoImpl.getAllContacts());
             int totalAppointments = allAppointments.size();
+            appointmentNumberLbl.setText(String.valueOf(totalAppointments));
 
         } catch (Exception e){
             Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE,
@@ -204,10 +206,17 @@ public class ReportPage implements Initializable {
      */
     public void onMonthSelectorBox(ActionEvent actionEvent) {
         int selectedMonthInt = monthSelectorBox.getSelectionModel().getSelectedIndex() +1;
-        appointmentByTypeTable.setItems(AppointmentsDaoImpl.getAppointmentsByMonthAndType(selectedMonthInt));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        countColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-
+        ObservableList<Appointments> resultAppointments = AppointmentsDaoImpl.getAppointmentsByMonthAndType(selectedMonthInt);
+        if (resultAppointments.isEmpty()){
+            monthFilterLbl.setText("No appointments found");
+        }
+        else {
+            monthFilterLbl.setText("Appointments found");
+            appointmentByTypeTable.setItems(resultAppointments);
+//            typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));  //works
+            typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+            countColumn.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        }
     }
 
     /**
@@ -219,8 +228,7 @@ public class ReportPage implements Initializable {
         System.out.println(getClass().getName() + " :Back Button clicked.");
 
         Stage stage = (Stage) backButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/view" +
-                "/MenuView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/MenuView.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
