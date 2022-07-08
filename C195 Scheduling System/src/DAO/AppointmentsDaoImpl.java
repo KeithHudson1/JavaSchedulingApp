@@ -213,19 +213,36 @@ public abstract class AppointmentsDaoImpl {
         return null;
     }
 
+    /**
+     * This method is used to filter out the appointments based on the contact is which is provided.
+     * In this method, the lambda's expression makes the determination of the contact id matching.
+     * This is a simpler, easier to read, solution compared to the original for loop setup commented out below.
+     * @param contactId the contact if which you are looking for appointments
+     * @return Returns a list of appointments for the contact id provided.
+     * @throws Exception
+     */
     public static ObservableList<Appointments> getAppointmentForContact (int contactId) throws Exception {
         ObservableList<Appointments> allAppointments =
                 AppointmentsDaoImpl.getAllAppointments();
-        ObservableList<Appointments> contactsAppointments =
-                FXCollections.observableArrayList();
 
-        for (int i = 0; i < allAppointments.size(); i++) {
-            Appointments searchedAppointment = allAppointments.get(i);
-            if(searchedAppointment.getContactId() == contactId ){
-                contactsAppointments.add(searchedAppointment);
+        return allAppointments.filtered(appt -> {
+            if(appt.getContactId() == contactId) {
+                return true;
             }
-        }
-        return contactsAppointments;
+            return false;
+        });
+
+//        This was the previous way I was handling appointment filtering for the contact id that was provided.
+//        I then improved it to the lambda version above.
+//        ObservableList<Appointments> contactsAppointments =
+//                FXCollections.observableArrayList();
+//        for (int i = 0; i < allAppointments.size(); i++) {
+//            Appointments searchedAppointment = allAppointments.get(i);
+//            if(searchedAppointment.getContactId() == contactId ){
+//                contactsAppointments.add(searchedAppointment);
+//            }
+//        }
+//        return contactsAppointments;
     }
 
     /**
@@ -405,8 +422,6 @@ public abstract class AppointmentsDaoImpl {
     public static ObservableList<Appointments> getAllAppointments() throws SQLException, Exception{
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
 
-//        allAppointments.clear(); //Need to clear the list, otherwise the list gets duplicated.
-
         try{
 //            DBConnection.openConnection();
             String sql = "SELECT * from client_schedule.appointments";
@@ -423,44 +438,46 @@ public abstract class AppointmentsDaoImpl {
                 String location = rs.getString("Location"); //    Location VARCHAR(50)
                 String type = rs.getString("Type"); //    Type VARCHAR(50)
 
-//                LocalDateTime startDateTime =
-//                        rs.getTimestamp("Start").toLocalDateTime(); //
-//                //   Start DATETIME
+                LocalDateTime localStartDateTime =
+                        rs.getTimestamp("Start").toLocalDateTime(); //   Start DATETIME
 //                LocalDate startDate = startDateTime.toLocalDate();
 //                LocalTime startTime = startDateTime.toLocalTime();
 
-                LocalDateTime utcStartDateTime =
-                        rs.getTimestamp("Start").toLocalDateTime(); //
-                //   Start DATETIME
-                LocalDate utcStartDate = utcStartDateTime.toLocalDate();
-                LocalTime utcStartTime = utcStartDateTime.toLocalTime();
-                ZoneId utcZoneId = ZoneId.of("UTC");
-                ZonedDateTime utcStartZDT = ZonedDateTime.of(utcStartDate,
-                        utcStartTime, utcZoneId);
-                ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-                Instant utcStartToLocalInstance = utcStartZDT.toInstant();
-                ZonedDateTime utcStartToLocalZDT =
-                        utcStartZDT.withZoneSameInstant(localZoneId);
-                LocalDateTime localStartDateTime =
-                        utcStartToLocalZDT.toLocalDateTime();
+                //The VM version is already doing the conversion coming into the software.
+                // Therefore this is unneeded.
+//                LocalDateTime utcStartDateTime =
+//                        rs.getTimestamp("Start").toLocalDateTime(); //
+//                //   Start DATETIME
+//                LocalDate utcStartDate = utcStartDateTime.toLocalDate();
+//                LocalTime utcStartTime = utcStartDateTime.toLocalTime();
+//                ZoneId utcZoneId = ZoneId.of("UTC");
+//                ZonedDateTime utcStartZDT = ZonedDateTime.of(utcStartDate,
+//                        utcStartTime, utcZoneId);
+//                ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+//                Instant utcStartToLocalInstance = utcStartZDT.toInstant();
+//                ZonedDateTime utcStartToLocalZDT =
+//                        utcStartZDT.withZoneSameInstant(localZoneId);
+//                LocalDateTime localStartDateTime =
+//                        utcStartToLocalZDT.toLocalDateTime();
 
-//                LocalDateTime endDateTime =
-//                        rs.getTimestamp("End").toLocalDateTime(); //    End DATETIME
+                LocalDateTime localEndDateTime = rs.getTimestamp("End").toLocalDateTime(); //    End DATETIME
 //                LocalDate endDate = endDateTime.toLocalDate();
 //                LocalTime endTime = endDateTime.toLocalTime();
-                LocalDateTime utcEndDateTime =
-                        rs.getTimestamp("End").toLocalDateTime();  //    End DATETIME
-                LocalDate utcEndDate = utcEndDateTime.toLocalDate();
-                LocalTime utcEndTime = utcEndDateTime.toLocalTime();
-//                ZoneId utcZoneId = ZoneId.of("UTC");
-                ZonedDateTime utcEndZDT = ZonedDateTime.of(utcEndDate,
-                        utcEndTime, utcZoneId);
-//                ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-                Instant utcEndToLocalInstance = utcEndZDT.toInstant();
-                ZonedDateTime utcEndToLocalZDT =
-                        utcEndZDT.withZoneSameInstant(localZoneId);
-                LocalDateTime localEndDateTime =
-                        utcEndToLocalZDT.toLocalDateTime();
+
+                // The VM version is already doing the conversion coming into the software.
+                // Therefore this is unneeded.
+//                LocalDateTime utcEndDateTime =
+//                        rs.getTimestamp("End").toLocalDateTime();  //    End DATETIME
+//                LocalDate utcEndDate = utcEndDateTime.toLocalDate();
+//                LocalTime utcEndTime = utcEndDateTime.toLocalTime();
+//                ZonedDateTime utcEndZDT = ZonedDateTime.of(utcEndDate,
+//                        utcEndTime, utcZoneId);
+////                ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+//                Instant utcEndToLocalInstance = utcEndZDT.toInstant();
+//                ZonedDateTime utcEndToLocalZDT =
+//                        utcEndZDT.withZoneSameInstant(localZoneId);
+//                LocalDateTime localEndDateTime =
+//                        utcEndToLocalZDT.toLocalDateTime();
 
 
 

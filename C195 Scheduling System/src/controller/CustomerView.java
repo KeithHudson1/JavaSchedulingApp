@@ -193,6 +193,11 @@ public class CustomerView implements Initializable {
     public void onBackButton(ActionEvent actionEvent) throws IOException {
         System.out.println(getClass().getName() + " :Back Button clicked.");
 
+        newCustomerCountryCombo.valueProperty().set(null);
+        newCustomerDivisionCombo.valueProperty().set(null);
+        editCustomerCountryComboBox.valueProperty().set(null);
+        editCustomerFirstDivisionComboBox.valueProperty().set(null);
+
         Stage stage = (Stage) backButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/view" +
                 "/MenuView.fxml"));
@@ -206,6 +211,12 @@ public class CustomerView implements Initializable {
      */
     public void onExitButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Exit Button clicked.");
+
+        newCustomerCountryCombo.valueProperty().set(null);
+        newCustomerDivisionCombo.valueProperty().set(null);
+        editCustomerCountryComboBox.valueProperty().set(null);
+        editCustomerFirstDivisionComboBox.valueProperty().set(null);
+
         Alert exit = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to exit?", ButtonType.YES);
         Optional<ButtonType> result = exit.showAndWait();
 
@@ -267,7 +278,7 @@ public class CustomerView implements Initializable {
         newCustomerPhoneText.clear();
         newCustomerAddressText.clear();
         newCustomerPostalCodeText.clear();
-        // These would cause an issue with the CountryCombo methods.
+        // These cause an issue with the CountryCombo methods.
 //        newCustomerCountryCombo.valueProperty().set(null);
 //        newCustomerDivisionCombo.valueProperty().set(null);
     }
@@ -278,14 +289,19 @@ public class CustomerView implements Initializable {
      */
     public void onClearNewCustomerButton(ActionEvent actionEvent) {
         System.out.println(getClass().getName() + " :Clear button clicked.");
-        newCustomerIdText.clear();
-        newCustomerNameText.clear();
-        newCustomerPhoneText.clear();
-        newCustomerAddressText.clear();
-        newCustomerPostalCodeText.clear();
-        // These would cause an issue with the CountryCombo methods.
-//        newCustomerCountryCombo.valueProperty().set(null);
-//        newCustomerDivisionCombo.valueProperty().set(null);
+        try{
+            newCustomerIdText.clear();
+            newCustomerNameText.clear();
+            newCustomerPhoneText.clear();
+            newCustomerAddressText.clear();
+            newCustomerPostalCodeText.clear();
+            newCustomerCountryCombo.valueProperty().set(null);
+            newCustomerDivisionCombo.valueProperty().set(null);
+        }
+            catch (NullPointerException e) {
+            System.out.print("Exception: " + e);
+            System.out.print("Exception: " + e.getMessage());
+        }
     }
 
     /**
@@ -334,7 +350,7 @@ public class CustomerView implements Initializable {
         editCustomerAddressText.clear();
         editCustomerPostalCodeText.clear();
         editCustomerPhoneText.clear();
-        // These would cause an issue with the CountryCombo methods.
+        // These cause an issue with the CountryCombo methods.
 //        editCustomerCountryComboBox.valueProperty().set(null);
 //        editCustomerFirstDivisionComboBox.valueProperty().set(null);
     }
@@ -344,53 +360,83 @@ public class CustomerView implements Initializable {
      * @param actionEvent from the cancel changes button.
      */
     public void onCancelCustomerChangeButton(ActionEvent actionEvent) {
-        editCustomerIdText.clear();
-        editCustomerNameText.clear();
-        editCustomerAddressText.clear();
-        editCustomerPostalCodeText.clear();
-        editCustomerPhoneText.clear();
-        // These would cause an issue with the CountryCombo methods.
-//        editCustomerCountryComboBox.valueProperty().set(null);
-//        editCustomerFirstDivisionComboBox.valueProperty().set(null);
+        try {
+            editCustomerIdText.clear();
+            editCustomerNameText.clear();
+            editCustomerAddressText.clear();
+            editCustomerPostalCodeText.clear();
+            editCustomerPhoneText.clear();
+            editCustomerCountryComboBox.valueProperty().set(null);
+            editCustomerFirstDivisionComboBox.valueProperty().set(null);
+        }
+        catch (NullPointerException e) {
+            System.out.print("Exception: " + e);
+            System.out.print("Exception: " + e.getMessage());
+        }
 
     }
 
     /**
-     * This loads the new customer first level division box based on the country value selected for the new customer.
-     * @param actionEvent from the country selection
+     * This method loads the new customer first level division box based on the country value selected for the new customer.
+     * This was updated with the lambda expression of filtered divisions from the DAO file. This reduces the number of
+     *  lines and calculations done in the controller here.
+     * @param actionEvent from the country combo box selection
      */
     public void onNewCustomerCountryCombo(ActionEvent actionEvent) {
-        ObservableList<FirstLevelDivisions> divisionsWithCountryId = FXCollections.observableArrayList();
-        Countries chosenCountry = newCustomerCountryCombo.getSelectionModel().getSelectedItem();
-        int divisionsToChoose = chosenCountry.getCountryId();
-
-        for (FirstLevelDivisions div : FirstLevelDivisionsDaoImpl.getAllFirstLevelDivisions()) {
-            if (divisionsToChoose == div.getCountryId()){
-//                editCustomerFirstDivisionComboBox.setValue(div);
-                divisionsWithCountryId.add(div);
-                newCustomerDivisionCombo.setItems(divisionsWithCountryId);
-            }
+        try {
+            Countries chosenCountry = newCustomerCountryCombo.getSelectionModel().getSelectedItem();
+            int chosenCountryId = chosenCountry.getCountryId();
+            ObservableList<FirstLevelDivisions> divisionsWithCountryId = FirstLevelDivisionsDaoImpl.getDivisionsForCountry(chosenCountryId);
+            newCustomerDivisionCombo.setItems(divisionsWithCountryId);
         }
+        catch (NullPointerException e) {
+            System.out.print("Exception: " + e);
+            System.out.print("Exception: " + e.getMessage());
+        }
+
+//
+//        ObservableList<FirstLevelDivisions> divisionsWithCountryId = FXCollections.observableArrayList();Countries chosenCountry = newCustomerCountryCombo.getSelectionModel().getSelectedItem();
+//        int divisionsToChoose = chosenCountry.getCountryId();
+//
+//        for (FirstLevelDivisions div : FirstLevelDivisionsDaoImpl.getAllFirstLevelDivisions()) {
+//            if (divisionsToChoose == div.getCountryId()){
+////                editCustomerFirstDivisionComboBox.setValue(div);
+//                divisionsWithCountryId.add(div);
+//                newCustomerDivisionCombo.setItems(divisionsWithCountryId);
+//            }
+//        }
     }
 
     /**
-     * This loads the edit customer division choice box based on the coutnry selected.
+     * This loads the edit customer division choice box based on the country selected.
      * @param actionEvent from the country selection
      */
     public void onEditCustomerCountryComboBox(ActionEvent actionEvent) {
-        ObservableList<FirstLevelDivisions> divisionsWithCountryId = FXCollections.observableArrayList();
-
-        int divisionsToChoose = -1;
-
-        Countries chosenCountry = editCustomerCountryComboBox.getSelectionModel().getSelectedItem();
-        divisionsToChoose = chosenCountry.getCountryId();
-
-        for (FirstLevelDivisions div : FirstLevelDivisionsDaoImpl.getAllFirstLevelDivisions()) {
-            if (divisionsToChoose == div.getCountryId()){
-//                editCustomerFirstDivisionComboBox.setValue(div);
-                divisionsWithCountryId.add(div);
-                editCustomerFirstDivisionComboBox.setItems(divisionsWithCountryId);
-            }
+        try {
+            Countries chosenCountry = editCustomerCountryComboBox.getSelectionModel().getSelectedItem();
+            int chosenCountryId = chosenCountry.getCountryId();
+            ObservableList<FirstLevelDivisions> divisionsWithCountryId = FirstLevelDivisionsDaoImpl.getDivisionsForCountry(chosenCountryId);
+            editCustomerFirstDivisionComboBox.setItems(divisionsWithCountryId);
         }
+        catch (NullPointerException e) {
+            System.out.print("Exception: " + e);
+            System.out.print("Exception: " + e.getMessage());
+        }
+
+//        Previous version before the lambda expression in FirstLevelDivisionsDaoImpl
+//        ObservableList<FirstLevelDivisions> divisionsWithCountryId = FXCollections.observableArrayList();
+//
+//        int divisionsToChoose = -1;
+//
+//        Countries chosenCountry = editCustomerCountryComboBox.getSelectionModel().getSelectedItem();
+//        divisionsToChoose = chosenCountry.getCountryId();
+//
+//        for (FirstLevelDivisions div : FirstLevelDivisionsDaoImpl.getAllFirstLevelDivisions()) {
+//            if (divisionsToChoose == div.getCountryId()){
+////                editCustomerFirstDivisionComboBox.setValue(div);
+//                divisionsWithCountryId.add(div);
+//                editCustomerFirstDivisionComboBox.setItems(divisionsWithCountryId);
+//            }
+//        }
     }
 }

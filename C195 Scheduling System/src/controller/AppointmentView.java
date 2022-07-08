@@ -319,29 +319,35 @@ public class AppointmentView implements Initializable {
             LocalDate localStartDate = editAppointmentStartDate.getValue();
             LocalTime localStartTime = editAppointmentStartTime.getSelectionModel().getSelectedItem();
             LocalDateTime localStartDateTime = LocalDateTime.of(localStartDate, localStartTime);
-            ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-            ZonedDateTime localStartZDT = ZonedDateTime.of(localStartDateTime, localZoneId);
-            ZoneId utcZoneId = ZoneId.of("UTC");
-            Instant localStartToUtcInstance = localStartZDT.toInstant();
-            ZonedDateTime localStartDateTimeToUtcZDT = localStartZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcStartDateTime = localStartDateTimeToUtcZDT.toLocalDateTime();
-            System.out.println("Local Start: " + localStartDateTime + " to UTC: " + utcStartDateTime);
+            // The VM version is handling the time conversion on its own.
+            // Therefore this is not needed.
+//            ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+//            ZonedDateTime localStartZDT = ZonedDateTime.of(localStartDateTime, localZoneId);
+//            ZoneId utcZoneId = ZoneId.of("UTC");
+//            Instant localStartToUtcInstance = localStartZDT.toInstant();
+//            ZonedDateTime localStartDateTimeToUtcZDT = localStartZDT.withZoneSameInstant(utcZoneId);
+//            LocalDateTime utcStartDateTime = localStartDateTimeToUtcZDT.toLocalDateTime();
+//            System.out.println("Local Start: " + localStartDateTime + " to UTC: " + utcStartDateTime);
 
             LocalDate localEndDate = editAppointmentEndDate.getValue();
             LocalTime localEndTime = editAppointmentEndTime.getSelectionModel().getSelectedItem();
             LocalDateTime localEndDateTime = LocalDateTime.of(localEndDate, localEndTime);
-            ZonedDateTime localEndZDT = ZonedDateTime.of(localEndDateTime, localZoneId);
-            ZonedDateTime localEndDateToUtcZDT = localEndZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcEndDateTime = localEndDateToUtcZDT.toLocalDateTime();
-            System.out.println("Local End: " + localEndDateTime + " to UTC: " + utcEndDateTime);
+            // The VM version is handling the time conversion on its own.
+            // Therefore this is not needed.
+//            ZonedDateTime localEndZDT = ZonedDateTime.of(localEndDateTime, localZoneId);
+//            ZonedDateTime localEndDateToUtcZDT = localEndZDT.withZoneSameInstant(utcZoneId);
+//            LocalDateTime utcEndDateTime = localEndDateToUtcZDT.toLocalDateTime();
+//            System.out.println("Local End: " + localEndDateTime + " to UTC: " + utcEndDateTime);
 
             String createdBy = selectedAppointment.getCreatedBy();
 
             LocalDateTime localUpdateDateTime = LocalDateTime.now();
-            ZonedDateTime localUpdateZDT = ZonedDateTime.of(localUpdateDateTime, localZoneId);
-            ZonedDateTime localUpdateDateToUtcZDT = localUpdateZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcUpdateDateTime = localUpdateDateToUtcZDT.toLocalDateTime();
-            System.out.println("Local Update: " + localUpdateDateTime + " to UTC: " + utcUpdateDateTime);
+            // The VM version is handling the time conversion on its own.
+            // Therefore this is not needed.
+//            ZonedDateTime localUpdateZDT = ZonedDateTime.of(localUpdateDateTime, localZoneId);
+//            ZonedDateTime localUpdateDateToUtcZDT = localUpdateZDT.withZoneSameInstant(utcZoneId);
+//            LocalDateTime utcUpdateDateTime = localUpdateDateToUtcZDT.toLocalDateTime();
+//            System.out.println("Local Update: " + localUpdateDateTime + " to UTC: " + utcUpdateDateTime);
 
             LocalDateTime createDateTime = selectedAppointment.getCreateDateTime();
 
@@ -382,19 +388,29 @@ public class AppointmentView implements Initializable {
                 }
             }
 //           If it passes all the collision checks, it will then complete the appointment addition.
-            System.out.println("No collisions found " +
-                    "in the scheduling. Creating " +
-                    "Appointment.");
-            System.out.println(id + " " + title + " " + description + " " +
-                    location + " " + type + " " + utcStartDateTime + " " + utcEndDateTime + " " +
-                    createDateTime + " " + createdBy + " " + utcUpdateDateTime + " " +
-                    lastUpdatedBy + " " +
-                    customerId + " " + userId + " " + contactId);
+//            System.out.println("No collisions found " +
+//                    "in the scheduling. Creating " +
+//                    "Appointment.");
+//            System.out.println(id + " " + title + " " + description + " " +
+//                    location + " " + type + " " + utcStartDateTime + " " + utcEndDateTime + " " +
+//                    createDateTime + " " + createdBy + " " + utcUpdateDateTime + " " +
+//                    lastUpdatedBy + " " +
+//                    customerId + " " + userId + " " + contactId);
+//
+            // The VM version is handling the time conversion on its own.
+            // Therefore I need to pass the local localdatetimes.
+//            AppointmentsDaoImpl.update(id, title, description,
+//                    location, type, utcStartDateTime, utcEndDateTime,
+//                    createDateTime, createdBy, utcUpdateDateTime,
+//                    lastUpdatedBy,
+//                    customerId, userId, contactId);
+
             AppointmentsDaoImpl.update(id, title, description,
-                    location, type, utcStartDateTime, utcEndDateTime,
-                    createDateTime, createdBy, utcUpdateDateTime,
+                    location, type, localStartDateTime, localEndDateTime,
+                    createDateTime, createdBy, localUpdateDateTime,
                     lastUpdatedBy,
                     customerId, userId, contactId);
+
 
             appointmentTableView.setItems(AppointmentsDaoImpl.getAllAppointments());
             errorMessageLbl.setText("Appointment " + id + " has been updated.");
@@ -470,41 +486,53 @@ public class AppointmentView implements Initializable {
             LocalDate localStartDate = newAppointmentStartDate.getValue();
             LocalTime localStartTime = newAppointmentStartTime.getSelectionModel().getSelectedItem();
             LocalDateTime localStartDateTime = LocalDateTime.of(localStartDate, localStartTime);
-            ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
-            ZonedDateTime localStartZDT = ZonedDateTime.of(localStartDate, localStartTime, localZoneId);
-            ZoneId utcZoneId = ZoneId.of("UTC");
-            Instant localToUtcInstance = localStartZDT.toInstant();
-            ZonedDateTime localStartDateToUtcZDT = localStartZDT.withZoneSameInstant(utcZoneId);
-//            LocalTime utcStartTimeFromLocal = localStartToUtcZDT.toInstant
-//            (UNSURE);
-            LocalDateTime utcStartDateTime = localStartDateToUtcZDT.toLocalDateTime();
+//
+//            The VM version automatically handles the time change from local to server time.
+//            Therefore this is redundant and I need to pass the local localdatetimes.
 
-            System.out.println("Local Start: " + localStartDateTime + " to " +
-                    "UTC: " + utcStartDateTime);
+//            ZoneId localZoneId = ZoneId.of(TimeZone.getDefault().getID());
+//            ZonedDateTime localStartZDT = ZonedDateTime.of(localStartDate, localStartTime, localZoneId);
+//            ZoneId utcZoneId = ZoneId.of("UTC");
+//            Instant localToUtcInstance = localStartZDT.toInstant();
+//            ZonedDateTime localStartDateToUtcZDT = localStartZDT.withZoneSameInstant(utcZoneId);
+////            LocalTime utcStartTimeFromLocal = localStartToUtcZDT.toInstant
+////            (UNSURE);
+//            LocalDateTime utcStartDateTime = localStartDateToUtcZDT.toLocalDateTime();
+//
+//            System.out.println("Local Start: " + localStartDateTime + " to " +
+//                    "UTC: " + utcStartDateTime);
 
 
             LocalDate localEndDate = newAppointmentEndDate.getValue();
             LocalTime localEndTime = newAppointmentEndTime.getSelectionModel().getSelectedItem();
             LocalDateTime localEndDateTime = LocalDateTime.of(localEndDate, localEndTime);
-            ZonedDateTime localEndZDT = ZonedDateTime.of(localEndDate, localEndTime, localZoneId);
-            ZonedDateTime localEndDateToUtcZDT = localEndZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcEndDateTime = localEndDateToUtcZDT.toLocalDateTime();
-            System.out.println("Local End: " + localEndDateTime + " to UTC: " + utcEndDateTime);
+
+//            The VM version automatically handles the time change from local to server time.
+//            Therefore this is redundant and I need to pass the local localdatetimes.
+
+//            ZonedDateTime localEndZDT = ZonedDateTime.of(localEndDate, localEndTime, localZoneId);
+//            ZonedDateTime localEndDateToUtcZDT = localEndZDT.withZoneSameInstant(utcZoneId);
+//            LocalDateTime utcEndDateTime = localEndDateToUtcZDT.toLocalDateTime();
+//            System.out.println("Local End: " + localEndDateTime + " to UTC: " + utcEndDateTime);
 
 
             LocalDateTime localCreateDateTime = LocalDateTime.now();
-            ZonedDateTime localCreateZDT = ZonedDateTime.of(localCreateDateTime, localZoneId);
-            ZonedDateTime localCreateDateToUtcZDT = localCreateZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcCreateDateTime = localCreateDateToUtcZDT.toLocalDateTime();
-            System.out.println("Local Create: " + localCreateDateTime + " to UTC: " + utcCreateDateTime);
+//            The VM version automatically handles the time change from local to server time.
+//            Therefore this is redundant and I need to pass the local localdatetimes.
+//            ZonedDateTime localCreateZDT = ZonedDateTime.of(localCreateDateTime, localZoneId);
+//            ZonedDateTime localCreateDateToUtcZDT = localCreateZDT.withZoneSameInstant(utcZoneId);
+//            LocalDateTime utcCreateDateTime = localCreateDateToUtcZDT.toLocalDateTime();
+//            System.out.println("Local Create: " + localCreateDateTime + " to UTC: " + utcCreateDateTime);
 
             String createdBy = "User";
 
             LocalDateTime localUpdateDateTime = LocalDateTime.now();
-            ZonedDateTime localUpdateZDT = ZonedDateTime.of(localUpdateDateTime, localZoneId);
-            ZonedDateTime localUpdateDateToUtcZDT = localUpdateZDT.withZoneSameInstant(utcZoneId);
-            LocalDateTime utcUpdateDateTime = localUpdateDateToUtcZDT.toLocalDateTime();
-            System.out.println("Local Update: " + localUpdateDateTime + " to UTC: " + utcUpdateDateTime);
+//            The VM version automatically handles the time change from local to server time.
+//            Therefore this is redundant and I need to pass the local localdatetimes.
+//            ZonedDateTime localUpdateZDT = ZonedDateTime.of(localUpdateDateTime, localZoneId);
+//            ZonedDateTime localUpdateDateToUtcZDT = localUpdateZDT.withZoneSameInstant(utcZoneId);
+//            LocalDateTime utcUpdateDateTime = localUpdateDateToUtcZDT.toLocalDateTime();
+//            System.out.println("Local Update: " + localUpdateDateTime + " to UTC: " + utcUpdateDateTime);
 
             String lastUpdatedBy = "User";
             Customers selectedCustomer = newAppointmentCustomerCombo.getSelectionModel().getSelectedItem();
@@ -541,17 +569,26 @@ public class AppointmentView implements Initializable {
                 }
             }
 
-            System.out.println("No collision found, " +
-                    "adding appointment.");
-            System.out.println(" " + title + " " + description + " " +
-                    location + " " + type + " " + utcStartDateTime + " " + utcEndDateTime + " " +
-                    utcStartDateTime + " " + createdBy + " " + utcUpdateDateTime + " " +
-                    lastUpdatedBy + " " +
-                    customerId + " " + userId + " " + contactId);
+//            System.out.println("No collision found, " +
+//                    "adding appointment.");
+//            System.out.println(" " + title + " " + description + " " +
+//                    location + " " + type + " " + utcStartDateTime + " " + utcEndDateTime + " " +
+//                    utcStartDateTime + " " + createdBy + " " + utcUpdateDateTime + " " +
+//                    lastUpdatedBy + " " +
+//                    customerId + " " + userId + " " + contactId);
+
+            // The VM version automatically handles the time change from local to server time.
+            // Therefore this is redundant and I need to pass the local localdatetimes.
+//            AppointmentsDaoImpl.insert(title, description,
+//                    location, type, utcStartDateTime, utcEndDateTime,
+//                    utcStartDateTime, createdBy, utcUpdateDateTime,
+//                    lastUpdatedBy,
+//                    customerId, userId, contactId);
+
 
             AppointmentsDaoImpl.insert(title, description,
-                    location, type, utcStartDateTime, utcEndDateTime,
-                    utcStartDateTime, createdBy, utcUpdateDateTime,
+                    location, type, localStartDateTime, localEndDateTime,
+                    localCreateDateTime, createdBy, localUpdateDateTime,
                     lastUpdatedBy,
                     customerId, userId, contactId);
 

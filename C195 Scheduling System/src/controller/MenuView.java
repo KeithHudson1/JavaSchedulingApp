@@ -54,7 +54,7 @@ public class MenuView implements Initializable {
             StringBuilder warningString = new StringBuilder();
             warningString.append("There are upcoming appointments. \n");
             for (Appointments a : approachingAppointments) {
-                warningString.append("\nAppointment ID: " + a.getID() + "UTC start date and time: " + a.getStartDateTime());
+                warningString.append("\nAppointment ID: " + a.getID() + "  UTC start date and time: " + a.getStartDateTime());
             }
             String appointmentWarning = warningString.toString();
             Alert upcomingAppointment = new Alert(Alert.AlertType.WARNING, appointmentWarning);

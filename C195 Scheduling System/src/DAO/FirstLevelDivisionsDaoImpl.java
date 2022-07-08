@@ -14,14 +14,15 @@ import java.sql.SQLException;
  */
 public class FirstLevelDivisionsDaoImpl {
 
-    public static ObservableList<FirstLevelDivisions> allDivisions =
-            FXCollections.observableArrayList();
+//    public static ObservableList<FirstLevelDivisions> allDivisions =
+//            FXCollections.observableArrayList();
 
     /**
      * This retrieves a specific first level division with the provided id.
      * @param id first level division id you are searching for
      */
     public static FirstLevelDivisions getFirstLevelDivision (int id) {
+        ObservableList<FirstLevelDivisions> allDivisions = FirstLevelDivisionsDaoImpl.getAllFirstLevelDivisions();
         for(FirstLevelDivisions div : allDivisions){
             if(div.getId() == id) {
                 return div;
@@ -31,12 +32,33 @@ public class FirstLevelDivisionsDaoImpl {
     }
 
     /**
+     * This method returns a list of divisions based on the country id that it's passed as a parameter.
+     * This utilizes a lambda expression to help minimize the calculations within the CustomerView file.
+     * @param countryid country id which the divisions need to be a part of.
+     * @return a list of divisions for the division boxes.
+     */
+
+    public static ObservableList<FirstLevelDivisions> getDivisionsForCountry (int countryid) {
+        ObservableList<FirstLevelDivisions> allDivisions = FirstLevelDivisionsDaoImpl.getAllFirstLevelDivisions();
+
+        return allDivisions.filtered(div -> {
+            if(div.getCountryId() == countryid) {
+                return true;
+            }
+            return false;
+        });
+    }
+
+
+    /**
      * This returns a list of all the first level divisions for the drop down box.
      * @return list of first level divisions
      */
     public static ObservableList<FirstLevelDivisions> getAllFirstLevelDivisions () {
-        allDivisions.clear(); //Need to clear the list, otherwise the list gets
-        // duplicated.
+//        allDivisions.clear(); //Need to clear the list, otherwise the list gets
+//        // duplicated.
+        ObservableList<FirstLevelDivisions> allDivisions = FXCollections.observableArrayList();
+
         try{
             String sql = "SELECT * FROM client_schedule.first_level_divisions";
 
