@@ -73,7 +73,7 @@ public class ReportPage implements Initializable {
 
     public TabPane customerAppointmentTable;
 
-    public TabPane contactAppointmentTable;
+
     public Tab customersTab1;
     public TableView<Appointments> customersAppointmentTable;
     public TableColumn apptContactIdCol1;
@@ -84,6 +84,18 @@ public class ReportPage implements Initializable {
     public TableColumn apptStartDateAndTimeCol1;
     public TableColumn apptEndDateAndTimeCol1;
     public TableColumn apptCustomerIdCol1;
+    public TabPane contactAppointmentTabPane;
+    public TableView contactsAppointmentTable;
+    public TableView contactsAppointmentTable2;
+    public TableView contactsAppointmentTable3;
+    public TableView contactsAppointmentTable5;
+    public TableView contactsAppointmentTable4;
+    public ComboBox<Contacts> contactFilterComboBox;
+    public Label appointmentNumberLbl;
+    public ComboBox monthSelectorBox;
+    public TableView<Appointments> appointmentByTypeTable;
+    public TableColumn typeColumn;
+    public TableColumn countColumn;
 
 
     /**
@@ -144,40 +156,58 @@ public class ReportPage implements Initializable {
         customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
 
 
-        ObservableList<Appointments> customerAppointmentList =
-                FXCollections.observableArrayList();
-
-        apptContactIdCol1.setCellValueFactory(new PropertyValueFactory<>(
-                "contactId"));
+        apptContactIdCol1.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         apptIdCol1.setCellValueFactory(new PropertyValueFactory<>("ID"));
         apptTitleCol1.setCellValueFactory(new PropertyValueFactory<>("title"));
         apptDescriptionCol1.setCellValueFactory(new PropertyValueFactory<>("description"));
-
         apptTypeCol1.setCellValueFactory(new PropertyValueFactory<>("type"));
         apptStartDateAndTimeCol1.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
-        apptEndDateAndTimeCol1.setCellValueFactory(new PropertyValueFactory<>(
-                "endDateTime"));
-        apptCustomerIdCol1.setCellValueFactory(new PropertyValueFactory<>(
-                "customerId"));
+        apptEndDateAndTimeCol1.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
+        apptCustomerIdCol1.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+
+        contactFilterComboBox.setItems(ContactsDaoImpl.getAllContacts());
+
+        ObservableList<String> monthsList = FXCollections.observableArrayList("January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December");
+        monthSelectorBox.setItems(monthsList);
+
+
 
         try {
-//            customerAppointmentList.addAll(AppointmentsDaoImpl.getAllAppointments());
-//            customersAppointmentTable.setItems(customerAppointmentList);
-            ObservableList<Appointments> allAppointments =
-                    FXCollections.observableArrayList();
+
+            ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
             allAppointments.addAll(AppointmentsDaoImpl.getAllAppointments());
-            ObservableList<Contacts> allContacts =
-                    FXCollections.observableArrayList();
+            ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
             allContacts.addAll(ContactsDaoImpl.getAllContacts());
-            int i = 1 ;
-            for (Contacts c : allContacts) {
-                contactAppointmentTable.getTabs().get(i-1).setText("Contact " + c.getId() + " Appointments");
-                i++;
-            }
+            int totalAppointments = allAppointments.size();
+
         } catch (Exception e){
             Logger.getLogger(AppointmentView.class.getName()).log(Level.SEVERE,
                     null, e);
         }
+    }
+
+    /**
+     *
+     * @param actionEvent
+     * @throws Exception
+     */
+    public void onContactFilterComboBox(ActionEvent actionEvent) throws Exception {
+        Contacts selectedContact = contactFilterComboBox.getSelectionModel().getSelectedItem();
+        ObservableList<Appointments> contactsAppointments = AppointmentsDaoImpl.getAppointmentForContact(selectedContact.getId());
+        contactsAppointmentTable.setItems(contactsAppointments);
+    }
+
+    /**
+     *
+     * @param actionEvent
+     */
+    public void onMonthSelectorBox(ActionEvent actionEvent) {
+        int selectedMonthInt = monthSelectorBox.getSelectionModel().getSelectedIndex() +1;
+        appointmentByTypeTable.setItems(AppointmentsDaoImpl.getAppointmentsByMonthAndType(selectedMonthInt));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        countColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
     }
 
     /**
@@ -209,5 +239,4 @@ public class ReportPage implements Initializable {
             stage.close();
         }
     }
-
 }

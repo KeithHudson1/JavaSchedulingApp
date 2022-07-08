@@ -1,0 +1,14 @@
+User User gave invalid log-in at 2022-07-07T11:32:54.577416 GMT-07:00
+User peter gave invalid log-in at 2022-07-07T11:33:03.171873800 GMT-07:00
+User admin successfully logged in at 2022-07-07T11:33:11.662190600 GMT-07:00
+User sdf gave invalid log-in at 2022-07-07 11:40:24 GMT-07:00
+User test successfully logged in at 2022-07-07 11:40:31 GMT-07:00
+User admin successfully logged in at 2022-07-07 12:02:10 GMT-07:00
+User admin successfully logged in at 2022-07-07 12:28:10 GMT-07:00
+User admin successfully logged in at 2022-07-07 14:14:28 GMT-07:00
+User admin successfully logged in at 2022-07-07 14:35:36 GMT-07:00
+User admin successfully logged in at 2022-07-07 14:57:45 GMT-07:00
+User admin successfully logged in at 2022-07-07 19:44:10 GMT-07:00
+User admin successfully logged in at 2022-07-07 19:57:14 GMT-07:00
+User admin successfully logged in at 2022-07-07 20:30:32 GMT-07:00
+User admin successfully logged in at 2022-07-07 21:07:48 GMT-07:00

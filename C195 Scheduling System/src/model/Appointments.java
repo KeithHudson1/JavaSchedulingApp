@@ -50,6 +50,11 @@ public class Appointments {
         this.contactId = contactId;
     }
 
+    public Appointments (int id, String type){
+        this.id = id;
+        this.type = type;
+    }
+
     /**
      *
      * @return Returns the appointment id.

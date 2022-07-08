@@ -228,6 +228,34 @@ public abstract class AppointmentsDaoImpl {
         return contactsAppointments;
     }
 
+    /**
+     *
+     * @param month takes an int value to represent month of year
+     * @return
+     */
+    public static ObservableList<Appointments> getAppointmentsByMonthAndType (int month){
+        ObservableList<Appointments> appointmentsByMonthAndType = FXCollections.observableArrayList();
+
+        try{
+            String sql = "SELECT COUNT(Appointment_ID), Type FROM appointments WHERE MONTH(Start) = ? GROUP BY Type";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setInt(1, month);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("COUNT(Appointment_ID)");
+                String type = resultSet.getString("Type");
+                Appointments a = new Appointments(id, type);
+                appointmentsByMonthAndType.add(a);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointmentsByMonthAndType;
+    }
+
 
     /**
      *
