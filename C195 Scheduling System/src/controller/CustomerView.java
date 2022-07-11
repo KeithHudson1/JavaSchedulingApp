@@ -48,10 +48,7 @@ public class CustomerView implements Initializable {
     public TableColumn<?,?> customerDivisionIdCol;
     public TableColumn<?,?> postalCodeCol;
     public TableColumn<?,?> phoneCol;
-    public TableColumn<?,?> customerCreateDateCol;
-    public TableColumn<?,?> customerCreatedByCol;
-    public TableColumn<?,?> customerLastUpdateDateCol;
-    public TableColumn<?,?> customerLastUpdatedByCol;
+
 
     public Button deleteCustomerButton;
     public Button editCustomerButton;
@@ -98,10 +95,7 @@ public class CustomerView implements Initializable {
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        customerCreateDateCol.setCellValueFactory(new PropertyValueFactory<>("createDate"));
-        customerCreatedByCol.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
-        customerLastUpdateDateCol.setCellValueFactory(new PropertyValueFactory<>("lastUpdate"));
-        customerLastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
+
 
         try {
             allCustomers.addAll(CustomersDaoImpl.getAllCustomers());

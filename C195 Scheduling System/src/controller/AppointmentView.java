@@ -138,7 +138,7 @@ public class AppointmentView implements Initializable {
         LocalTime localStartTimeFromEastern = easternStartToLocalZDT.toLocalTime();
         LocalTime start = easternStartToLocalZDT.toLocalTime();
 
-        LocalTime easternEndTime = LocalTime.of(22,0);
+        LocalTime easternEndTime = LocalTime.of(20,00);
         ZonedDateTime easternEndZDT = ZonedDateTime.of(easternDate, easternEndTime, easternZoneId);
 
         Instant easternToLocalInstanceEnd = easternEndZDT.toInstant();

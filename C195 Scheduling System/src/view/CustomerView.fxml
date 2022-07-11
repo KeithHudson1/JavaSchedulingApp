@@ -34,10 +34,6 @@
             <TableColumn fx:id="customerDivisionIdCol" prefWidth="50.0" text="Div ID" />
             <TableColumn fx:id="postalCodeCol" prefWidth="81.0" text="Postal Code" />
             <TableColumn fx:id="phoneCol" prefWidth="130.0" text="Phone" />
-            <TableColumn fx:id="customerCreateDateCol" prefWidth="130.0" text="Create Date" />
-            <TableColumn fx:id="customerCreatedByCol" prefWidth="80.0" text="Created By" />
-            <TableColumn fx:id="customerLastUpdateDateCol" prefWidth="130.0" text="Last Update Date" />
-            <TableColumn fx:id="customerLastUpdatedByCol" prefWidth="80.0" text="Last Updated By" />
 
         </columns>
       </TableView>
