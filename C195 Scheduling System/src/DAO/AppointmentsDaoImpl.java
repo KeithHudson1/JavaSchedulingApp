@@ -275,8 +275,9 @@ public abstract class AppointmentsDaoImpl {
 
 
     /**
-     *
-     * @return
+     * This method retrieves appointments that are within a certain number of days based on the provided paramter.
+     * @param daysAhead int value of days ahead you want appointments
+     * @return returns a list of appointments
      * @throws SQLException
      * @throws Exception
      */
@@ -344,71 +345,22 @@ public abstract class AppointmentsDaoImpl {
     }
 
     /**
-     * 
-     * @param minutesAhead
-     * @return
-     * @throws SQLException
-     * @throws Exception
+     *  This method retrieves the upcoming appointments based on the provided minutesAhead parameter.
+     * @param minutesAhead the minutes ahead int value
+     * @return returns a list of appointments
      */
-    public static ObservableList<Appointments> getNearAppointments(int minutesAhead) throws SQLException, Exception{
+    public static ObservableList<Appointments> getNearAppointments(int minutesAhead) throws Exception {
 
         ObservableList<Appointments> approachingAppointments = FXCollections.observableArrayList();
+        ObservableList<Appointments> allAppointments = getAllAppointments();
 
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd " +
-                "hh:mm:ss");
         LocalDateTime nowDateTime = LocalDateTime.now();
         LocalDateTime minutesAheadDateTime = nowDateTime.plusMinutes(minutesAhead);
 
-        try{
-
-            String sql = "SELECT * from client_schedule.appointments WHERE " +
-                    "Start > ? AND Start <= ?" ;
-
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ps.setTimestamp(1,
-                    Timestamp.valueOf(String.valueOf(nowDateTime.format(format))));
-            ps.setTimestamp(2,
-                    Timestamp.valueOf(String.valueOf(minutesAheadDateTime.format(format))));
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-
-                int id = rs.getInt("Appointment_ID"); //    Appointment_ID INT(10) (PK)
-                String title = rs.getString("Title"); //    Title VARCHAR(50)
-                String description = rs.getString("Description");  //    Description VARCHAR(50)
-                String location = rs.getString("Location"); //    Location VARCHAR(50)
-                String type = rs.getString("Type"); //    Type VARCHAR(50)
-                LocalDateTime startDateTime =
-                        rs.getTimestamp("Start").toLocalDateTime(); //
-                //   Start DATETIME
-                LocalDate startDate = startDateTime.toLocalDate();
-                LocalTime startTime = startDateTime.toLocalTime();
-
-                LocalDateTime endDateTime =
-                        rs.getTimestamp("End").toLocalDateTime(); //    End DATETIME
-                LocalDate endDate = endDateTime.toLocalDate();
-                LocalTime endTime = endDateTime.toLocalTime();
-                LocalDateTime createDateTime =
-                        rs.getTimestamp("Create_Date").toLocalDateTime(); //    Create_Date DATETIME
-                String createdBy = rs.getString("Created_By"); //    Created_By VARCHAR(50)
-                LocalDateTime lastUpdateDateTime =
-                        rs.getTimestamp("Last_Update").toLocalDateTime(); //    Last_Update TIMESTAMP
-                String lastUpdatedBy = rs.getString("Last_Updated_By"); //    Last_Updated_By VARCHAR(50)
-                int customerId = rs.getInt("Customer_ID");//    Customer_ID INT(10) (FK)
-                int userId = rs.getInt("User_ID"); //    User_ID INT(10) (FK)
-                int contactId = rs.getInt("Contact_ID"); //    Contact_ID INT(10) (FK)
-
-                Appointments A = new Appointments(id, title, description,
-                        location, type, startDateTime, endDateTime,
-                        createDateTime, createdBy, lastUpdateDateTime,
-                        lastUpdatedBy,
-                        customerId, userId, contactId);
-                approachingAppointments.add(A);
+        for (Appointments a : allAppointments){
+            if (a.getStartDateTime().isBefore(minutesAheadDateTime) && a.getStartDateTime().isAfter(nowDateTime)){
+                approachingAppointments.add(a);
             }
-        }
-        catch(SQLException throwables) {
-            throwables.printStackTrace();
         }
         return approachingAppointments;
     }
@@ -423,11 +375,8 @@ public abstract class AppointmentsDaoImpl {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
 
         try{
-//            DBConnection.openConnection();
             String sql = "SELECT * from client_schedule.appointments";
-
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {

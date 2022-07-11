@@ -201,6 +201,7 @@ public class CustomersDaoImpl {
                         rs.getTimestamp("Last_Update").toLocalDateTime(); //
                 // Last_Update TIMESTAMP
                 String lastUpdatedBy = rs.getString("Last_Updated_By"); // Last_Updated_By VARCHAR(50)
+//                int countryId = rs.getInt("Country_ID");
                 int divisionId = rs.getInt("Division_ID"); // Division_ID INT(10) (FK)
 
                 Customers c = new Customers(id, customerName,address, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdatedBy, divisionId);

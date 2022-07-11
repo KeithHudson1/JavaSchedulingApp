@@ -14,9 +14,6 @@ import java.sql.SQLException;
  */
 public class FirstLevelDivisionsDaoImpl {
 
-//    public static ObservableList<FirstLevelDivisions> allDivisions =
-//            FXCollections.observableArrayList();
-
     /**
      * This retrieves a specific first level division with the provided id.
      * @param id first level division id you are searching for

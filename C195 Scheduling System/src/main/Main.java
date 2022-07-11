@@ -27,8 +27,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("/view/MenuView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/LoginScreen.fxml"));
+//        Selective startup locations
+//        Parent root = FXMLLoader.load(getClass().getResource("/view/MenuView.fxml"));
 //        Parent root = FXMLLoader.load(getClass().getResource("/view/AppointmentView.fxml"));
         primaryStage.setTitle("Login Screen");
         primaryStage.setScene(new Scene(root, 1000 , 700));

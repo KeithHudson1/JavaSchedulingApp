@@ -195,9 +195,16 @@ public class ReportPage implements Initializable {
      * @throws Exception
      */
     public void onContactFilterComboBox(ActionEvent actionEvent) throws Exception {
-        Contacts selectedContact = contactFilterComboBox.getSelectionModel().getSelectedItem();
-        ObservableList<Appointments> contactsAppointments = AppointmentsDaoImpl.getAppointmentForContact(selectedContact.getId());
-        contactsAppointmentTable.setItems(contactsAppointments);
+        try {
+            Contacts selectedContact = contactFilterComboBox.getSelectionModel().getSelectedItem();
+            ObservableList<Appointments> contactsAppointments = AppointmentsDaoImpl.getAppointmentForContact(selectedContact.getId());
+            contactsAppointmentTable.setItems(contactsAppointments);
+        }
+        catch (NullPointerException e) {
+            System.out.println("Null values detected!");
+            System.out.print("Exception: " + e);
+            System.out.print("Exception: " + e.getMessage());
+        }
     }
 
     /**
@@ -209,6 +216,7 @@ public class ReportPage implements Initializable {
         ObservableList<Appointments> resultAppointments = AppointmentsDaoImpl.getAppointmentsByMonthAndType(selectedMonthInt);
         if (resultAppointments.isEmpty()){
             monthFilterLbl.setText("No appointments found");
+            appointmentByTypeTable.setItems(resultAppointments);
         }
         else {
             monthFilterLbl.setText("Appointments found");

@@ -17,20 +17,22 @@ public class Customers {
     private int customerId;  // Customer_ID INT(10) (PK)
     private String name; //Customer_Name VARCHAR(50)
     private String address; // Address VARCHAR(100)
+    private int countryId; //Division_ID INT(10) (FK)
+    private int divisionId; //Division_ID INT(10) (FK)
     private String postalCode; // Postal_Code VARCHAR(50)
     private String phone; // Phone VARCHAR(50)
     private LocalDateTime createDate; // Create_Date DATETIME
     private String createdBy; // Created_By VARCHAR(50)
     private LocalDateTime lastUpdate; // Last_Update TIMESTAMP
     private String lastUpdatedBy; // Last_Updated_By VARCHAR(50)
-    private int divisionId; //Division_ID INT(10) (FK)
+
 
 //    private static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();;
 //    private static ObservableList<FirstLevelDivisions> allFirstLevelDivisions = FXCollections.observableArrayList();
 
     public Customers(int customerId, String name, String address, String postalCode,
                      String phone, LocalDateTime createDate, String createdBy,
-                     LocalDateTime lastUpdate, String lastUpdatedBy, int divisionId) {
+                     LocalDateTime lastUpdate, String lastUpdatedBy,  int divisionId) {
         this.customerId = customerId;
         this.name = name;
         this.address = address;
@@ -40,6 +42,7 @@ public class Customers {
         this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
         this.lastUpdatedBy = lastUpdatedBy;
+//        this.countryId = countryId;
         this.divisionId = divisionId;
     }
     public String toString() {return customerId + " " + name; }
@@ -187,6 +190,7 @@ public class Customers {
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
+
 
     /**
      *

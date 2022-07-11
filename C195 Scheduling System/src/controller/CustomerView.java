@@ -45,13 +45,14 @@ public class CustomerView implements Initializable {
     public TableColumn<?,?> customerIdCol;
     public TableColumn<?,?> customerNameCol;
     public TableColumn<?,?> addressCol;
+    public TableColumn<?,?> customerDivisionIdCol;
     public TableColumn<?,?> postalCodeCol;
     public TableColumn<?,?> phoneCol;
     public TableColumn<?,?> customerCreateDateCol;
     public TableColumn<?,?> customerCreatedByCol;
     public TableColumn<?,?> customerLastUpdateDateCol;
     public TableColumn<?,?> customerLastUpdatedByCol;
-    public TableColumn<?,?> customerDivisionIdCol;
+
     public Button deleteCustomerButton;
     public Button editCustomerButton;
 
@@ -79,6 +80,7 @@ public class CustomerView implements Initializable {
     public Button clearNewCustomerButton;
     public Label errorMessageLbl;
 
+
     ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
 
     /**
@@ -94,12 +96,12 @@ public class CustomerView implements Initializable {
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
         customerCreateDateCol.setCellValueFactory(new PropertyValueFactory<>("createDate"));
         customerCreatedByCol.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
         customerLastUpdateDateCol.setCellValueFactory(new PropertyValueFactory<>("lastUpdate"));
         customerLastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
-        customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
 
         try {
             allCustomers.addAll(CustomersDaoImpl.getAllCustomers());
@@ -109,8 +111,6 @@ public class CustomerView implements Initializable {
         }
 
         customersTable.setItems(allCustomers);
-
-        //Using Lambda for efficient selection off a tableview
 
         ObservableList<Countries> countries = CountriesDaoImpl.getAllCountries();
         editCustomerCountryComboBox.setItems(countries);
@@ -236,7 +236,8 @@ public class CustomerView implements Initializable {
         try {
             String customerName = newCustomerNameText.getText();
             String customerAddress = newCustomerAddressText.getText();
-            Countries customerCountry = newCustomerCountryCombo.getSelectionModel().getSelectedItem();
+//            Countries customerCountry = newCustomerCountryCombo.getSelectionModel().getSelectedItem();
+//            int countryId = customerCountry.getCountryId();
             FirstLevelDivisions customerFirstDivision =
                     newCustomerDivisionCombo.getSelectionModel().getSelectedItem();
             int divisionId = customerFirstDivision.getId();
@@ -278,9 +279,8 @@ public class CustomerView implements Initializable {
         newCustomerPhoneText.clear();
         newCustomerAddressText.clear();
         newCustomerPostalCodeText.clear();
-        // These cause an issue with the CountryCombo methods.
-//        newCustomerCountryCombo.valueProperty().set(null);
-//        newCustomerDivisionCombo.valueProperty().set(null);
+        newCustomerCountryCombo.valueProperty().set(null);
+        newCustomerDivisionCombo.valueProperty().set(null);
     }
 
     /**
@@ -316,7 +316,7 @@ public class CustomerView implements Initializable {
             Customers selectedCustomer = CustomersDaoImpl.getCustomer(customerId);
             String customerName = editCustomerNameText.getText();
             String customerAddress = editCustomerAddressText.getText();
-            Countries customerCountry = editCustomerCountryComboBox.getSelectionModel().getSelectedItem();
+//            Countries customerCountry = editCustomerCountryComboBox.getSelectionModel().getSelectedItem();
             FirstLevelDivisions customerFirstDivision = editCustomerFirstDivisionComboBox.getSelectionModel().getSelectedItem();
             String customerPostalCode = editCustomerPostalCodeText.getText();
             String customerPhone = editCustomerPhoneText.getText();
@@ -350,9 +350,8 @@ public class CustomerView implements Initializable {
         editCustomerAddressText.clear();
         editCustomerPostalCodeText.clear();
         editCustomerPhoneText.clear();
-        // These cause an issue with the CountryCombo methods.
-//        editCustomerCountryComboBox.valueProperty().set(null);
-//        editCustomerFirstDivisionComboBox.valueProperty().set(null);
+        editCustomerCountryComboBox.valueProperty().set(null);
+        editCustomerFirstDivisionComboBox.valueProperty().set(null);
     }
 
     /**

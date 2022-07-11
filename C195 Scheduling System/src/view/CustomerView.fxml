@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerView">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerView">
    <children>
        <Button fx:id="backButton" layoutX="856.0" layoutY="42.0" mnemonicParsing="false" onAction="#onBackButton" text="Back" />
        <Button fx:id="exitButton" layoutX="925.0" layoutY="42.0" mnemonicParsing="false" onAction="#onExitButton" text="Exit" />
@@ -20,21 +28,17 @@
 <!--            <TableColumn fx:id="customerPostalCodeCol" prefWidth="91.0" text="Postal Code" />-->
 <!--            <TableColumn fx:id="customerPhoneCol" prefWidth="170.0" text="Phone" />-->
 
-            <TableColumn fx:id="customerIdCol" prefWidth="50.0"
-                         text="Cust ID" />
-            <TableColumn fx:id="customerNameCol" prefWidth="120.0"
-                         text="Customer Name" />
-            <TableColumn fx:id="addressCol" prefWidth="150.0" text="address" />
+            <TableColumn fx:id="customerIdCol" prefWidth="50.0" text="ID" />
+            <TableColumn fx:id="customerNameCol" prefWidth="120.0" text="Name" />
+            <TableColumn fx:id="addressCol" prefWidth="150.0" text="Address" />
+            <TableColumn fx:id="customerDivisionIdCol" prefWidth="50.0" text="Div ID" />
             <TableColumn fx:id="postalCodeCol" prefWidth="81.0" text="Postal Code" />
             <TableColumn fx:id="phoneCol" prefWidth="130.0" text="Phone" />
-            <TableColumn fx:id="customerCreateDateCol" prefWidth="130.0"
-                         text="Create Date" />
+            <TableColumn fx:id="customerCreateDateCol" prefWidth="130.0" text="Create Date" />
             <TableColumn fx:id="customerCreatedByCol" prefWidth="80.0" text="Created By" />
-            <TableColumn fx:id="customerLastUpdateDateCol" prefWidth="130.0"
-                         text="Last Update Date" />
+            <TableColumn fx:id="customerLastUpdateDateCol" prefWidth="130.0" text="Last Update Date" />
             <TableColumn fx:id="customerLastUpdatedByCol" prefWidth="80.0" text="Last Updated By" />
-            <TableColumn fx:id="customerDivisionIdCol" prefWidth="50.0"
-                         text="Div ID" />
+
         </columns>
       </TableView>
       <GridPane layoutX="59.0" layoutY="400.0" prefHeight="272.0" prefWidth="316.0">
