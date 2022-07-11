@@ -216,7 +216,7 @@ public abstract class AppointmentsDaoImpl {
     /**
      * This method is used to filter out the appointments based on the contact is which is provided.
      * LAMBDA EXPRESSION: In this method, the lambda's expression makes the determination of the contact id matching.
-     * This is a simpler, easier to read, solution compared to the original for loop setup commented out below.
+     * I created this solution to simplify my code.
      * @param contactId the contact if which you are looking for appointments
      * @return Returns a list of appointments for the contact id provided.
      * @throws Exception

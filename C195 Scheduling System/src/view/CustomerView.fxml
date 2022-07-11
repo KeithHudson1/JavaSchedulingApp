@@ -22,19 +22,13 @@
          </font></Label>
       <TableView fx:id="customersTable" layoutX="27.0" layoutY="88.0" prefHeight="250.0" prefWidth="936.0">
         <columns>
-<!--          <TableColumn fx:id="customerIdCol" prefWidth="75.0" text="Customer ID" />-->
-<!--          <TableColumn fx:id="customerNameCol" prefWidth="185.0" text="Customer Name" />-->
-<!--            <TableColumn fx:id="customerAddressCol" prefWidth="397.0" text="Address" />-->
-<!--            <TableColumn fx:id="customerPostalCodeCol" prefWidth="91.0" text="Postal Code" />-->
-<!--            <TableColumn fx:id="customerPhoneCol" prefWidth="170.0" text="Phone" />-->
-
             <TableColumn fx:id="customerIdCol" prefWidth="50.0" text="ID" />
             <TableColumn fx:id="customerNameCol" prefWidth="120.0" text="Name" />
             <TableColumn fx:id="addressCol" prefWidth="150.0" text="Address" />
+            <TableColumn fx:id="customerCountryIdCol" prefWidth="50.0" text="Country ID" />
             <TableColumn fx:id="customerDivisionIdCol" prefWidth="50.0" text="Div ID" />
             <TableColumn fx:id="postalCodeCol" prefWidth="81.0" text="Postal Code" />
             <TableColumn fx:id="phoneCol" prefWidth="130.0" text="Phone" />
-
         </columns>
       </TableView>
       <GridPane layoutX="59.0" layoutY="400.0" prefHeight="272.0" prefWidth="316.0">

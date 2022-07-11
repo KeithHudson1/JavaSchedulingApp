@@ -30,7 +30,7 @@ public class FirstLevelDivisionsDaoImpl {
 
     /**
      * This method returns a list of divisions based on the country id that it's passed as a parameter.
-     * This utilizes a lambda expression to help minimize the calculations within the CustomerView file.
+     * LAMBDA EXPRESSION: This lambda expression helps minimize the calculations within the CustomerView file.
      * @param countryid country id which the divisions need to be a part of.
      * @return a list of divisions for the division boxes.
      */

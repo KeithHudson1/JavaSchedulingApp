@@ -38,28 +38,7 @@ public class MenuView implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(getClass().getName() + "in initialize.");
 
-        ObservableList<Appointments> approachingAppointments = null;
-        try {
-            approachingAppointments = AppointmentsDaoImpl.getNearAppointments(15);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (approachingAppointments.isEmpty()) {
-            Alert upcomingAppointment = new Alert(Alert.AlertType.INFORMATION, "There are no appointments in the next 15 minutes.");
-            upcomingAppointment.showAndWait();
-            //            Optional<ButtonType> result = exit.showAndWait();
-        }
-        else{
 
-            StringBuilder warningString = new StringBuilder();
-            warningString.append("There are upcoming appointments. \n");
-            for (Appointments a : approachingAppointments) {
-                warningString.append("\nAppointment ID: " + a.getID() + "     Local date and time: " + a.getStartDateTime());
-            }
-            String appointmentWarning = warningString.toString();
-            Alert upcomingAppointment = new Alert(Alert.AlertType.WARNING, appointmentWarning);
-            upcomingAppointment.showAndWait();
-        }
     }
 
     /**

@@ -105,7 +105,6 @@ public class CustomersDaoImpl {
             ps.setString(2, address);
             ps.setString(3, postalCode);
             ps.setString(4, phone);
-
             ps.setTimestamp(5, Timestamp.valueOf(createDateTime));//Create_Date DATETIME;
             ps.setString(6, createdBy);
             ps.setTimestamp(7, Timestamp.valueOf(lastUpdateDateTime));// Last_Update TIMESTAMP;
@@ -176,14 +175,11 @@ public class CustomersDaoImpl {
      */
     public static ObservableList<Customers> getAllCustomers() {
         ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
-//        allCustomers.clear(); //Need to clear the list, otherwise the list gets duplicated.
         try{
-//            String sql = "SELECT * FROM client_schedule.appointments";
-            String sql = "SELECT * FROM client_schedule.customers";
-
+            String sql = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, customers.Create_Date, customers.Created_By, customers.Last_Update, customers.Last_Updated_By, customers.Division_ID, Country_ID FROM customers, first_level_divisions WHERE customers.Division_ID=first_level_divisions.Division_ID";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
 
                 int id = rs.getInt("Customer_ID"); // Customer_ID INT(10) (PK)
@@ -191,20 +187,14 @@ public class CustomersDaoImpl {
                 String address = rs.getString("Address"); // VARCHAR(100)
                 String postalCode = rs.getString("Postal_Code"); // VARCHAR(50)
                 String phone = rs.getString("Phone"); //  VARCHAR(50)
-//                String createDate = rs.getString("Create_Date"); // Create_Date DATETIME
-                LocalDateTime createDate =
-                        rs.getTimestamp("Create_Date").toLocalDateTime(); //
-                // Create_Date  DATETIME
+                LocalDateTime createDate = rs.getTimestamp("Create_Date").toLocalDateTime(); // Create_Date  DATETIME
                 String createdBy = rs.getString("Created_By"); // Created_By VARCHAR(50)
-//                String lastUpdate = rs.getString("Last_Update"); // Last_Update
-                LocalDateTime lastUpdate =
-                        rs.getTimestamp("Last_Update").toLocalDateTime(); //
-                // Last_Update TIMESTAMP
+                LocalDateTime lastUpdate = rs.getTimestamp("Last_Update").toLocalDateTime(); // Last_Update TIMESTAMP
                 String lastUpdatedBy = rs.getString("Last_Updated_By"); // Last_Updated_By VARCHAR(50)
-//                int countryId = rs.getInt("Country_ID");
+                int countryId = rs.getInt("Country_ID");
                 int divisionId = rs.getInt("Division_ID"); // Division_ID INT(10) (FK)
 
-                Customers c = new Customers(id, customerName,address, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdatedBy, divisionId);
+                Customers c = new Customers(id, customerName,address, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdatedBy, countryId, divisionId);
                 allCustomers.add(c);
             }
         }

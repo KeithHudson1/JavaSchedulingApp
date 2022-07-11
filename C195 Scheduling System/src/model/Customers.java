@@ -32,7 +32,7 @@ public class Customers {
 
     public Customers(int customerId, String name, String address, String postalCode,
                      String phone, LocalDateTime createDate, String createdBy,
-                     LocalDateTime lastUpdate, String lastUpdatedBy,  int divisionId) {
+                     LocalDateTime lastUpdate, String lastUpdatedBy, int countryId, int divisionId) {
         this.customerId = customerId;
         this.name = name;
         this.address = address;
@@ -42,7 +42,7 @@ public class Customers {
         this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
         this.lastUpdatedBy = lastUpdatedBy;
-//        this.countryId = countryId;
+        this.countryId = countryId;
         this.divisionId = divisionId;
     }
     public String toString() {return customerId + " " + name; }
@@ -207,5 +207,9 @@ public class Customers {
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
     }
+
+    public int getCountryId() {return countryId;}
+
+    public void setCountryId( int countryId) {this.countryId = countryId;}
 
 }

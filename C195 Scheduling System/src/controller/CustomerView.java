@@ -76,12 +76,13 @@ public class CustomerView implements Initializable {
     public Button saveNewCustomerButton;
     public Button clearNewCustomerButton;
     public Label errorMessageLbl;
+    public TableColumn<?,?> customerCountryIdCol;
 
 
     ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
 
     /**
-     * This handles the initializing of the Customer View for the app. This incluses loading the customer data table.
+     * This handles the initializing of the Customer View for the app. This includes loading the customer data table.
      * @param url location
      * @param resourceBundle resources
      */
@@ -93,6 +94,7 @@ public class CustomerView implements Initializable {
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        customerCountryIdCol.setCellValueFactory(new PropertyValueFactory<>("countryId"));
         customerDivisionIdCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
 

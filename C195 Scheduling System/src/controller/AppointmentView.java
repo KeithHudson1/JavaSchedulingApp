@@ -95,8 +95,6 @@ public class AppointmentView implements Initializable {
 
     ObservableList<Appointments> appointmentList =
             FXCollections.observableArrayList();
-//    ObservableList<Contacts> contactList =
-//            ContactsDaoImpl.getAllContacts();
 
      /**
      * This handles the initial loading of the appointment view window.
@@ -122,12 +120,9 @@ public class AppointmentView implements Initializable {
         typeOptions.add("De-Briefing");
         typeOptions.add("Planning Session");
         typeOptions.add("One-on-One");
-//        String[] typeOptions = {"Coffee House", "Office", "Phone", "Virtual"};
         editAppointmentTypeComboBox.setItems(typeOptions);
         newAppointmentTypeComboBox.setItems(typeOptions);
 
-//        LocalTime start = LocalTime.of(6, 00);
-//        LocalTime end = LocalTime.of(17, 00);
         LocalDate easternDate = LocalDate.now();
         LocalTime easternStartTime = LocalTime.of(8,0);
         ZoneId easternZoneId = ZoneId.of("America/New_York");
@@ -138,7 +133,7 @@ public class AppointmentView implements Initializable {
         LocalTime localStartTimeFromEastern = easternStartToLocalZDT.toLocalTime();
         LocalTime start = easternStartToLocalZDT.toLocalTime();
 
-        LocalTime easternEndTime = LocalTime.of(20,00);
+        LocalTime easternEndTime = LocalTime.of(22,00);
         ZonedDateTime easternEndZDT = ZonedDateTime.of(easternDate, easternEndTime, easternZoneId);
 
         Instant easternToLocalInstanceEnd = easternEndZDT.toInstant();
@@ -364,21 +359,33 @@ public class AppointmentView implements Initializable {
                 errorMessageLbl.setText("Your submitted End time is before your Start time.");
                 break Save;
             }
+            ObservableList<Appointments> appointmentList2 = AppointmentsDaoImpl.getAllAppointments();
 
-            for (Appointments a : appointmentList) {
+            for (Appointments a : appointmentList2) {
                 LocalDateTime aStart = a.getStartDateTime();
                 LocalDateTime aEnd = a.getEndDateTime();
 
                 if (a.getID() != id) {
                     if (customerId == a.getCustomerId()) {
-                        if (((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
-                            errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
+                        if ( localStartDateTime.isEqual(aStart) && localStartDateTime.isEqual(aEnd)) {
+                            errorMessageLbl.setText("Your appt matches start anf end time with " + a.getID() + " for that customer.");
                             break Save;
-                        } else if (localEndDateTime.isAfter(aStart) && (localEndDateTime.isBefore(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                        }
+                        else if (localStartDateTime.isBefore(aStart) && localEndDateTime.isAfter(aStart)) {
                             errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
                             break Save;
-                        } else if ((localStartDateTime.isBefore(aStart) || localStartDateTime.isEqual(aStart)) && (localEndDateTime.isAfter(aEnd) || localEndDateTime.isEqual(aEnd))) {
-                            errorMessageLbl.setText("Your times enclose appt " + a.getID() + " for that customer.");
+                        }
+                        else if(localStartDateTime.isAfter(aStart) && localStartDateTime.isBefore(aEnd)){
+                            errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
+                            break Save;
+                        }
+                        else if(localStartDateTime.isAfter(aStart) && localStartDateTime.isBefore(aEnd)){
+                            errorMessageLbl.setText("Your times is enclosed by appt " + a.getID() + " for that customer.");
+                            break Save;
+                        }
+                        else if (localStartDateTime.isBefore(aStart)  &&  localEndDateTime.isEqual(aEnd))
+                        {
+                            errorMessageLbl.setText("Your times encloses appt " + a.getID() + " for that customer.");
                             break Save;
                         }
                     }
@@ -447,8 +454,6 @@ public class AppointmentView implements Initializable {
         editAppointmentTypeComboBox.valueProperty().set(null);
         editAppointmentStartTime.valueProperty().set(null);
         editAppointmentEndTime.valueProperty().set(null);
-//        editAppointmentStartDate.getEditor().clear();
-//        editAppointmentEndDate.getEditor().clear();
         editAppointmentCustomerCombo.valueProperty().set(null);
         editAppointmentUserCombo.valueProperty().set(null);
 
@@ -545,19 +550,32 @@ public class AppointmentView implements Initializable {
                 break Save;
             }
 
-            for (Appointments a : appointmentList) {
+            ObservableList<Appointments> appointmentList2 = AppointmentsDaoImpl.getAllAppointments();
+
+            for (Appointments a : appointmentList2) {
                 LocalDateTime aStart = a.getStartDateTime();
                 LocalDateTime aEnd = a.getEndDateTime();
 
                 if (customerId == a.getCustomerId()) {
-                    if (((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
-                        errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
+                    if ( localStartDateTime.isEqual(aStart) && localStartDateTime.isEqual(aEnd)) {
+                        errorMessageLbl.setText("Your appt matches start anf end time with " + a.getID() + " for that customer.");
                         break Save;
-                    } else if (localEndDateTime.isAfter(aStart) && (localEndDateTime.isBefore(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                    }
+                    else if (localStartDateTime.isBefore(aStart) && localEndDateTime.isAfter(aStart)) {
                         errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
                         break Save;
-                    } else if ((localStartDateTime.isBefore(aStart) || localStartDateTime.isEqual(aStart)) && (localEndDateTime.isAfter(aEnd) || localEndDateTime.isEqual(aEnd))) {
-                        errorMessageLbl.setText("Your times enclose appt " + a.getID() + " for that customer.");
+                    }
+                    else if(localStartDateTime.isAfter(aStart) && localStartDateTime.isBefore(aEnd)){
+                        errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
+                        break Save;
+                    }
+                    else if(localStartDateTime.isAfter(aStart) && localStartDateTime.isBefore(aEnd)){
+                        errorMessageLbl.setText("Your times is enclosed by appt " + a.getID() + " for that customer.");
+                        break Save;
+                    }
+                    else if (localStartDateTime.isBefore(aStart)  &&  localEndDateTime.isEqual(aEnd))
+                    {
+                        errorMessageLbl.setText("Your times encloses appt " + a.getID() + " for that customer.");
                         break Save;
                     }
                 }
@@ -589,21 +607,18 @@ public class AppointmentView implements Initializable {
             appointmentTableView.setItems(AppointmentsDaoImpl.getAllAppointments());
             errorMessageLbl.setText("New appointment saved.");
 
-            //         FIXME: Muting this out for now.
-//            newAppointmentIdText.clear();
-//            newAppointmentTitleText.clear();
-//            newAppointmentDescriptionText.clear();
-//            newAppointmentLocationText.clear();
-//            newAppointmentContactComboBox.valueProperty().set(null);
-//            newAppointmentCustomerIdText.clear();
-//            newAppointmentUserIdText.clear();
-//            newAppointmentTypeComboBox.valueProperty().set(null);
-//            newAppointmentStartTime.valueProperty().set(null);
-//            newAppointmentEndTime.valueProperty().set(null);
-//            newAppointmentStartDate.getEditor().clear();
-//            newAppointmentEndDate.getEditor().clear();
-//            newAppointmentCustomerCombo.valueProperty().set(null);
-//            newAppointmentUserCombo.valueProperty().set(null);
+            newAppointmentIdText.clear();
+            newAppointmentTitleText.clear();
+            newAppointmentDescriptionText.clear();
+            newAppointmentLocationText.clear();
+            newAppointmentContactComboBox.valueProperty().set(null);
+            newAppointmentTypeComboBox.valueProperty().set(null);
+            newAppointmentStartTime.valueProperty().set(null);
+            newAppointmentEndTime.valueProperty().set(null);
+            newAppointmentStartDate.getEditor().clear();
+            newAppointmentEndDate.getEditor().clear();
+            newAppointmentCustomerCombo.valueProperty().set(null);
+            newAppointmentUserCombo.valueProperty().set(null);
 
         }
         catch(NullPointerException | NumberFormatException | SQLException e) {
