@@ -1,6 +1,7 @@
 package model;
 
 import DAO.DBConnection;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,17 +13,17 @@ import java.sql.SQLException;
  *
  */
 public class Users {
-    private int id; // User_ID INT(10) (PK)
-    private String userName; //User_Name VARCHAR(50) (UNIQUE)
-    private String password; // Password TEXT
-    private String createDate; // Create_Date DATETIME
-    private String createdBy; //Created_By VARCHAR(50)
-    private String lastUpdate; //Last_Update TIMESTAMP
-    private String lastUpdatedBy; //Last_Updated_By VARCHAR(50)
+    private ObservableValue<Integer> id; // User_ID INT(10) (PK)
+    private ObservableValue<String> userName; //User_Name VARCHAR(50) (UNIQUE)
+    private ObservableValue<String> password; // Password TEXT
+    private ObservableValue<String> createDate; // Create_Date DATETIME
+    private ObservableValue<String> createdBy; //Created_By VARCHAR(50)
+    private ObservableValue<String> lastUpdate; //Last_Update TIMESTAMP
+    private ObservableValue<String> lastUpdatedBy; //Last_Updated_By VARCHAR(50)
 
 //    private static ObservableList<Users> allUsers = FXCollections.observableArrayList();
 
-    public Users(int id, String userName, String password, String createDate, String createdBy, String lastUpdate, String lastUpdatedBy) {
+    public Users(ObservableValue<Integer> id, ObservableValue<String> userName, ObservableValue<String> password, ObservableValue<String> createDate, ObservableValue<String> createdBy, ObservableValue<String> lastUpdate, ObservableValue<String> lastUpdatedBy) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -33,14 +34,17 @@ public class Users {
     }
 
     public String toString() {
-        return id + " " + userName;
+        String idString = id.getValue().toString();
+        String userNameString = userName.getValue().toString();
+        String completeString = (idString + " " + userNameString);
+        return (completeString);
     }
 
     /**
      *
      * @return
      */
-    public int getId() {
+    public ObservableValue<Integer> getId() {
         return id;
     }
 
@@ -48,7 +52,7 @@ public class Users {
      *
      * @param id
      */
-    public void setId(int id) {
+    public void setId(ObservableValue<Integer> id) {
         this.id = id;
     }
 
@@ -56,7 +60,7 @@ public class Users {
      *
      * @return
      */
-    public String getUserName() {
+    public ObservableValue<String> getUserName() {
         return userName;
     }
 
@@ -64,7 +68,7 @@ public class Users {
      *
      * @param userName
      */
-    public void setUserName(String userName) {
+    public void setUserName(ObservableValue<String> userName) {
         this.userName = userName;
     }
 
@@ -72,7 +76,7 @@ public class Users {
      *
      * @return
      */
-    public String getPassword() {
+    public ObservableValue<String> getPassword() {
         return password;
     }
 
@@ -80,7 +84,7 @@ public class Users {
      *
      * @param password
      */
-    public void setPassword(String password) {
+    public void setPassword(ObservableValue<String> password) {
         this.password = password;
     }
 
@@ -88,7 +92,7 @@ public class Users {
      *
      * @return
      */
-    public String getCreateDate() {
+    public ObservableValue<String> getCreateDate() {
         return createDate;
     }
 
@@ -96,7 +100,7 @@ public class Users {
      *
      * @param createDate
      */
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(ObservableValue<String> createDate) {
         this.createDate = createDate;
     }
 
@@ -104,7 +108,7 @@ public class Users {
      *
      * @return
      */
-    public String getCreatedBy() {
+    public ObservableValue<String> getCreatedBy() {
         return createdBy;
     }
 
@@ -112,7 +116,7 @@ public class Users {
      *
      * @param createdBy
      */
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(ObservableValue<String> createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -120,7 +124,7 @@ public class Users {
      *
      * @return
      */
-    public String getLastUpdate() {
+    public ObservableValue<String> getLastUpdate() {
         return lastUpdate;
     }
 
@@ -128,7 +132,7 @@ public class Users {
      *
      * @param lastUpdate
      */
-    public void setLastUpdate(String lastUpdate) {
+    public void setLastUpdate(ObservableValue<String> lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -136,7 +140,7 @@ public class Users {
      *
      * @return
      */
-    public String getLastUpdatedBy() {
+    public ObservableValue<String> getLastUpdatedBy() {
         return lastUpdatedBy;
     }
 
@@ -144,7 +148,7 @@ public class Users {
      *
      * @param lastUpdatedBy
      */
-    public void setLastUpdatedBy(String lastUpdatedBy) {
+    public void setLastUpdatedBy(ObservableValue<String> lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 }

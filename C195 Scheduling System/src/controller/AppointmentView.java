@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -347,7 +348,7 @@ public class AppointmentView implements Initializable {
             Users selectedUser = editAppointmentUserCombo.getSelectionModel().getSelectedItem();
 
             int customerId = selectedCustomer.getCustomerId();
-            int userId = selectedUser.getId();
+            int userId = selectedUser.getId().getValue();
 
             LocalDateTime nowLDT = LocalDateTime.now();
 
@@ -367,25 +368,16 @@ public class AppointmentView implements Initializable {
 
                 if (a.getID() != id) {
                     if (customerId == a.getCustomerId()) {
-                        if ( localStartDateTime.isEqual(aStart) && localStartDateTime.isEqual(aEnd)) {
-                            errorMessageLbl.setText("Your appt matches start anf end time with " + a.getID() + " for that customer.");
-                            break Save;
-                        }
-                        else if (localStartDateTime.isBefore(aStart) && localEndDateTime.isAfter(aStart)) {
-                            errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
-                            break Save;
-                        }
-                        else if(localStartDateTime.isAfter(aStart) && localStartDateTime.isBefore(aEnd)){
+                        if(((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
                             errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
                             break Save;
                         }
-                        else if(localStartDateTime.isAfter(aStart) && localStartDateTime.isBefore(aEnd)){
-                            errorMessageLbl.setText("Your times is enclosed by appt " + a.getID() + " for that customer.");
+                        else if(localEndDateTime.isAfter(aStart) && (localEndDateTime.isBefore(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                            errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
                             break Save;
                         }
-                        else if (localStartDateTime.isBefore(aStart)  &&  localEndDateTime.isEqual(aEnd))
-                        {
-                            errorMessageLbl.setText("Your times encloses appt " + a.getID() + " for that customer.");
+                        else if((localStartDateTime.isBefore(aStart) || localStartDateTime.isEqual(aStart)) && (localEndDateTime.isAfter(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                            errorMessageLbl.setText("Your times enclose appt " + a.getID() + " for that customer.");
                             break Save;
                         }
                     }
@@ -539,7 +531,7 @@ public class AppointmentView implements Initializable {
             Users selectedUser = newAppointmentUserCombo.getSelectionModel().getSelectedItem();
 
             int customerId = selectedCustomer.getCustomerId();
-            int userId = selectedUser.getId();
+            int userId = selectedUser.getId().getValue();
 
             if (localStartDateTime.isBefore(LocalDateTime.now())) {
                 errorMessageLbl.setText("Your start time is in the past.");
@@ -557,25 +549,16 @@ public class AppointmentView implements Initializable {
                 LocalDateTime aEnd = a.getEndDateTime();
 
                 if (customerId == a.getCustomerId()) {
-                    if ( localStartDateTime.isEqual(aStart) && localStartDateTime.isEqual(aEnd)) {
-                        errorMessageLbl.setText("Your appt matches start anf end time with " + a.getID() + " for that customer.");
-                        break Save;
-                    }
-                    else if (localStartDateTime.isBefore(aStart) && localEndDateTime.isAfter(aStart)) {
-                        errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
-                        break Save;
-                    }
-                    else if(localStartDateTime.isAfter(aStart) && localStartDateTime.isBefore(aEnd)){
+                    if(((localStartDateTime.isAfter(aStart)) || localStartDateTime.isEqual(aStart)) && localStartDateTime.isBefore(aEnd)) {
                         errorMessageLbl.setText("Your start time lands in appt " + a.getID() + " for that customer.");
                         break Save;
                     }
-                    else if(localStartDateTime.isAfter(aStart) && localStartDateTime.isBefore(aEnd)){
-                        errorMessageLbl.setText("Your times is enclosed by appt " + a.getID() + " for that customer.");
+                    else if(localEndDateTime.isAfter(aStart) && (localEndDateTime.isBefore(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                        errorMessageLbl.setText("Your end time lands in appt " + a.getID() + " for that customer.");
                         break Save;
                     }
-                    else if (localStartDateTime.isBefore(aStart)  &&  localEndDateTime.isEqual(aEnd))
-                    {
-                        errorMessageLbl.setText("Your times encloses appt " + a.getID() + " for that customer.");
+                    else if((localStartDateTime.isBefore(aStart) || localStartDateTime.isEqual(aStart)) && (localEndDateTime.isAfter(aEnd) || localEndDateTime.isEqual(aEnd))) {
+                        errorMessageLbl.setText("Your times enclose appt " + a.getID() + " for that customer.");
                         break Save;
                     }
                 }

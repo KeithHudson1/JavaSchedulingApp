@@ -1,5 +1,8 @@
 package DAO;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Users;
@@ -22,7 +25,8 @@ public class UserDaoImpl {
 
         for(int i = 0; i < allUsers.size(); i++) {
             Users searchedUser = allUsers.get(i);
-            if(searchedUser.getId() == userId) {
+            int searchedUserId = searchedUser.getId().getValue();
+            if(searchedUserId == userId) {
                 return searchedUser;
             }
         }
@@ -49,7 +53,7 @@ public class UserDaoImpl {
                 String lastUpdate = rs.getString("Last_Update"); // Last_Update TIMESTAMP
                 String lastUpdatedBy = rs.getString("Last_Updated_By"); // Last_Updated_By VARCHAR(50)
 
-                Users u = new Users(id, userName, password, createDate, createdBy, lastUpdate, lastUpdatedBy);
+                Users u = new Users(new ReadOnlyObjectWrapper(id), new ReadOnlyStringWrapper(userName), new ReadOnlyStringWrapper(password), new ReadOnlyStringWrapper(createDate), new ReadOnlyStringWrapper(createdBy), new ReadOnlyStringWrapper(lastUpdate), new ReadOnlyStringWrapper(lastUpdatedBy));
                 allUsers.add(u);
             }
         }

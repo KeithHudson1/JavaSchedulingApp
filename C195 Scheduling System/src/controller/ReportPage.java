@@ -29,13 +29,13 @@ public class ReportPage implements Initializable {
     public Button exitButton;
 
     public TableView<Users> usersTable;
-    public TableColumn<?,?> usersUserIdCol;
-    public TableColumn<?,?> usersUserNameCol;
-    public TableColumn<?,?> usersPasswordCol;
-    public TableColumn<?,?> usersCreateDateCol;
-    public TableColumn<?,?> usersCreatedByCol;
-    public TableColumn<?,?> usersLastUpdateCol;
-    public TableColumn<?,?> usersLastUpdatedByCol;
+    public TableColumn<Users,Integer> usersUserIdCol;
+    public TableColumn<Users,String> usersUserNameCol;
+    public TableColumn<Users,String> usersPasswordCol;
+    public TableColumn<Users,String> usersCreateDateCol;
+    public TableColumn<Users,String> usersCreatedByCol;
+    public TableColumn<Users,String> usersLastUpdateCol;
+    public TableColumn<Users,String> usersLastUpdatedByCol;
 
     public TableView<Contacts> contactsTable;
     public TableColumn<?,?> contactIdCol;
@@ -101,6 +101,8 @@ public class ReportPage implements Initializable {
 
     /**
      * This handles the intiialize and table loading for the report page.
+     * LAMBDA EXPRESSION: These made it possible to associate the object get functions and assign them to a column value.
+     * This helps utilize code already written and aid maintenance down the road.
      * @param url location
      * @param resourceBundle resources
      */
@@ -110,13 +112,26 @@ public class ReportPage implements Initializable {
 
         usersTable.setItems(UserDaoImpl.getAllUsers());
 
-        usersUserIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        usersUserNameCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        usersUserIdCol.setCellValueFactory(cellData -> {
+            return cellData.getValue().getId();
+        });
+        usersUserNameCol.setCellValueFactory(cellData -> {
+            return cellData.getValue().getUserName();
+        });
         usersPasswordCol.setText("P******");
-        usersCreateDateCol.setCellValueFactory(new PropertyValueFactory<>("createDate"));
-        usersCreatedByCol.setCellValueFactory(new PropertyValueFactory<>("createdBy"));
-        usersLastUpdateCol.setCellValueFactory(new PropertyValueFactory<>("lastUpdate"));
-        usersLastUpdatedByCol.setCellValueFactory(new PropertyValueFactory<>("lastUpdatedBy"));
+        usersCreateDateCol.setCellValueFactory(cellData -> {
+            return cellData.getValue().getCreateDate();
+        });
+        usersCreatedByCol.setCellValueFactory(cellData -> {
+            return cellData.getValue().getCreatedBy();
+        });
+        usersLastUpdateCol.setCellValueFactory(cellData -> {
+            return cellData.getValue().getLastUpdate();
+        });
+        usersLastUpdatedByCol.setCellValueFactory(cellData -> {
+            return cellData.getValue().getLastUpdatedBy();
+        });
+
 
         contactsTable.setItems(ContactsDaoImpl.getAllContacts());
 

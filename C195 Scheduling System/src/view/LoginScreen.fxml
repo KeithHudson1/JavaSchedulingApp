@@ -50,8 +50,8 @@
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="sysLangDetectedLbl" prefHeight="28.0" prefWidth="227.0" text="System Language Detected:" />
-            <TextField fx:id="systemLanguageTextField" disable="true" editable="false" prefHeight="25.0" prefWidth="161.0" promptText="Autofill User's system language" GridPane.columnIndex="1" />
+<!--            <Label fx:id="sysLangDetectedLbl" prefHeight="28.0" prefWidth="227.0" text="System Language Detected:" />-->
+<!--            <TextField fx:id="systemLanguageTextField" disable="true" editable="false" prefHeight="25.0" prefWidth="161.0" promptText="Autofill User's system language" GridPane.columnIndex="1" />-->
             <Label fx:id="sysZoneidDetectedLbl" prefHeight="28.0" prefWidth="227.0" text="System ZoneId Detected:" GridPane.rowIndex="1" />
             <TextField fx:id="systemZoneIdTextField" disable="true" editable="false" prefHeight="25.0" prefWidth="161.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
