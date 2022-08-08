@@ -18,8 +18,6 @@ import java.util.TimeZone;
 /**
  * In this class we will have the Create, Read, Update and Delete files for the appointments table from the MySQL server.
  */
-// In Malcolm's JDBC presentation he has his Dao class as abstract since this
-// is not building any objects.
 public abstract class AppointmentsDaoImpl {
 
     /**
@@ -62,12 +60,9 @@ public abstract class AppointmentsDaoImpl {
             ps.setString(2, description);
             ps.setString(3, location);
             ps.setString(4, type);
-            //        startDayTime =
-//            LocalDateTime startDayTime = LocalDateTime.of(startDate,startTime);
-            ps.setTimestamp(5, Timestamp.valueOf(startDateTime)); // Start
-            // DATETIME;
 
-//            LocalDateTime endDayTime = LocalDateTime.of(endDate, endTime);
+            ps.setTimestamp(5, Timestamp.valueOf(startDateTime)); // Start
+
             ps.setTimestamp(6, Timestamp.valueOf(endDateTime)); // End DATETIME;
             ps.setTimestamp(7, Timestamp.valueOf(createDate));//Create_Date DATETIME;
             ps.setString(8, createdBy);
@@ -135,11 +130,11 @@ public abstract class AppointmentsDaoImpl {
             ps.setString(3, location);
             ps.setString(4, type);
 
-//            LocalDateTime startDayTime = LocalDateTime.of(startDate,startTime);
+
             ps.setTimestamp(5, Timestamp.valueOf(startDateTime)); // Start
             // DATETIME;
 
-//            LocalDateTime endDayTime = LocalDateTime.of(endDate, endTime);
+
             ps.setTimestamp(6, Timestamp.valueOf(endDateTime)); // End// DATETIME;
             ps.setTimestamp(7, Timestamp.valueOf(createDateTime));//Create_Date DATETIME;
             ps.setString(8, createdBy);

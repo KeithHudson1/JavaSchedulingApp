@@ -15,12 +15,6 @@ import java.time.LocalDateTime;
  */
 public class CustomersDaoImpl {
 
-//    private static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();
-
-//    public static ObservableList<Customers> allCustomers() {
-//        return allCustomers;
-//    }
-
     /**
      * Inserts the Customer into the customer table in the MySQL database.
      * @param name customer name

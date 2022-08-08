@@ -21,7 +21,6 @@ public class Countries {
     private String lastUpdate; //Last_Update TIMESTAMP
     private String lastUpdatedBy; // Last_Updated_By VARCHAR(50)
 
-//    private static ObservableList<Countries> allCountries = FXCollections.observableArrayList();
 
     public Countries(int countryId, String country, String createDate, String createdBy, String lastUpdate, String lastUpdatedBy) {
         this.countryId = countryId;

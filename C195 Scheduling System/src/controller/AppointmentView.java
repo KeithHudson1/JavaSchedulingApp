@@ -65,23 +65,16 @@ public class AppointmentView implements Initializable {
     public Button newAppointmentSaveButton;
     public Button newAppointmentClearButton;
 
-    @FXML
+    
     public TableView<Appointments> appointmentTableView;
     public TableColumn<?,?> apptIdCol;
     public TableColumn<?,?> apptLocationCol;
-    @FXML
     public TableColumn<?,?> apptTitleCol;
-    @FXML
     public TableColumn<?,?> apptDescriptionCol;
-    @FXML
     public TableColumn<?,?> apptTypeCol;
-    @FXML
     public TableColumn<?,?> apptStartDateAndTimeCol;
-    @FXML
     public TableColumn<?,?> apptEndDateAndTimeCol;
-    @FXML
     public TableColumn<?,?> apptCustomerIdCol;
-    @FXML
     public TableColumn<?,?> apptUserIdCol;
     public Button backButton;
     public Button exitButton;
