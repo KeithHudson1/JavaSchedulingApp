@@ -27,9 +27,6 @@ public class Customers {
     private String lastUpdatedBy; // Last_Updated_By VARCHAR(50)
 
 
-//    private static ObservableList<Customers> allCustomers = FXCollections.observableArrayList();;
-//    private static ObservableList<FirstLevelDivisions> allFirstLevelDivisions = FXCollections.observableArrayList();
-
     public Customers(int customerId, String name, String address, String postalCode,
                      String phone, LocalDateTime createDate, String createdBy,
                      LocalDateTime lastUpdate, String lastUpdatedBy, int countryId, int divisionId) {

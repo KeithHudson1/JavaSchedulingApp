@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreen">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreen">
    <children>
       <GridPane alignment="CENTER" layoutX="279.0" layoutY="300.0" prefHeight="129.0" prefWidth="355.0">
         <columnConstraints>
@@ -40,20 +35,19 @@
          </children>
       </GridPane>
 
-      <GridPane layoutX="31.0" layoutY="42.0" prefHeight="63.0" prefWidth="421.0">
+      <GridPane layoutX="14.0" layoutY="40.0" prefHeight="28.0" prefWidth="421.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="235.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="152.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
 <!--            <Label fx:id="sysLangDetectedLbl" prefHeight="28.0" prefWidth="227.0" text="System Language Detected:" />-->
 <!--            <TextField fx:id="systemLanguageTextField" disable="true" editable="false" prefHeight="25.0" prefWidth="161.0" promptText="Autofill User's system language" GridPane.columnIndex="1" />-->
-            <Label fx:id="sysZoneidDetectedLbl" prefHeight="28.0" prefWidth="227.0" text="System ZoneId Detected:" GridPane.rowIndex="1" />
-            <TextField fx:id="systemZoneIdTextField" disable="true" editable="false" prefHeight="25.0" prefWidth="161.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="sysZoneidDetectedLbl" prefHeight="28.0" prefWidth="227.0" text="System ZoneId Detected:" />
+            <TextField fx:id="systemZoneIdTextField" disable="true" editable="false" prefHeight="25.0" prefWidth="161.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
       <Button fx:id="exitButton" layoutX="925.0" layoutY="42.0" mnemonicParsing="false" onAction="#onExitButton" text="Exit" />

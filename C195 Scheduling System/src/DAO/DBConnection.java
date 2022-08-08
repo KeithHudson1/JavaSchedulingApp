@@ -2,18 +2,18 @@ package DAO;
 
 import java.sql.*;
 
-// Malcolm's JDBC presentation has his JDBC class as abstract because this
-// isn't used to create Objects. It's just for DB connection.
 /**
  * This class houses the credentials and process to access the MySQL server.
  */
 public abstract class DBConnection {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
-    private static final String location = "//localhost/";
-    private static final String databaseName = "client_schedule";
+    private static final String location = "//localhost:3306/";
+//    private static final String databaseName = "client_schedule";
+    private static final String databaseName = "C195DBClient";
     private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL  You can remove connection
-    // Time zon e lcuas off this in the VM lab.
+//    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = LOCAL"; // NOT CORRECT  You can remove
+//    connection
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     private static final String userName = "sqlUser"; // Username
     private static String password = "Passw0rd!"; // Password
@@ -59,7 +59,6 @@ public abstract class DBConnection {
 
     /**
      * Used to check the date conversion from the server's UTC to my system's time.
-     * Created following Mark Kinkaid's- C195 Getting The DBConnection Class Project Ready (02-13-2021)
      */
     public static void checkDateConversion() {
         System.out.println("CREATE DATE TEST");

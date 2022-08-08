@@ -21,8 +21,6 @@ public class Users {
     private ObservableValue<String> lastUpdate; //Last_Update TIMESTAMP
     private ObservableValue<String> lastUpdatedBy; //Last_Updated_By VARCHAR(50)
 
-//    private static ObservableList<Users> allUsers = FXCollections.observableArrayList();
-
     public Users(ObservableValue<Integer> id, ObservableValue<String> userName, ObservableValue<String> password, ObservableValue<String> createDate, ObservableValue<String> createdBy, ObservableValue<String> lastUpdate, ObservableValue<String> lastUpdatedBy) {
         this.id = id;
         this.userName = userName;

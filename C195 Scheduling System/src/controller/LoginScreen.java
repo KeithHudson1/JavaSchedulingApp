@@ -34,8 +34,6 @@ public class LoginScreen implements Initializable {
     public TextField passwordTextbox;
     public Button loginButton;
     public Button exitButton;
-//    public Label sysLangDetectedLbl;
-//    public TextField systemLanguageTextField;
     public Label userNameLabel;
     public Label passwordLabel;
     public Label schedulingAppLbl;
@@ -54,19 +52,14 @@ public class LoginScreen implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(getClass().getName() + "in initialize.");
-//        systemLanguageTextField.setText(Locale.getDefault().toString());
 
         String currentLocale = Locale.getDefault().getLanguage().toString();
         String currentZoneId = ZoneId.systemDefault().toString();
 
-//        System.out.println(currentLocale);
-//        System.out.println(currentZoneId);
-
         if (currentLocale.equals("de") || currentLocale.equals("en") || currentLocale.equals("en_US") || currentLocale.equals("es") || currentLocale.equals("fr")) {
             ResourceBundle rb = ResourceBundle.getBundle("main/nat", Locale.getDefault());
 
-//            sysLangDetectedLbl.setText(rb.getString("System Language Detected"));
-//            systemLanguageTextField.setText(rb.getLocale().getLanguage());
+
             sysZoneidDetectedLbl.setText(rb.getString("System Zone Id"));
             systemZoneIdTextField.setText(currentZoneId);
             loginButton.setText(rb.getString("Login"));
